@@ -1,7 +1,11 @@
 import pygame
+from constantes import *
 
 # Initialiser pygame
 pygame.init()
 
 # Créer la fenêtre du jeu
-screen = pygame.display.set_mode((800, 600))
+fenetre = pygame.display.set_mode((800, 600))
+
+def main():
+    fenetre.fill(BLANC)
