@@ -5,7 +5,7 @@ from constantes import *
 pygame.init()
 
 # Créer la fenêtre du jeu
-fenetre = pygame.display.set_mode((800, 600))
+fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
-def main():
+def principal():
     fenetre.fill(BLANC)

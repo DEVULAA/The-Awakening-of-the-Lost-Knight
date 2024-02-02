@@ -5,51 +5,14 @@ from constantes import *
 # Initialiser pygame
 pygame.init()
 
+
 # Créer la fenêtre du jeu
-fenetre = pygame.display.set_mode((800, 600))
+
+fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
 # Définir le titre et l'icône du jeu
 pygame.display.set_caption("The Awakening of the Lost Knight")
 
-
-
-# Créer boutons
-def creer_bouton(image, texte, taille_texte, bouton_largeur, bouton_hauteur, pos_x, pos_y):
-
-    font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", taille_texte)
-
-    texte_surface = font.render(texte, True, NOIR)
-
-    bouton_surface = pygame.Surface((bouton_largeur, bouton_hauteur))
-    bouton_surface.set_alpha(0)
-    bouton_surface.fill(BLANC)
-
-    # Dessine le bouton
-    fenetre.blit(bouton_surface, (pos_x, pos_y))
-
-
-
-    # Charge et affiche l'image
-    image_surface = pygame.image.load(image)
-    image_surface = pygame.transform.scale(image_surface,(bouton_largeur, bouton_hauteur))  # Ajuste la taille de l'image
-    fenetre.blit(image_surface, (pos_x + 10, pos_y + 10))
-
-    # Dessine le texte au centre du bouton
-    texte_x = pos_x + 10 + (bouton_largeur - texte_surface.get_width()) / 2
-    texte_y = pos_y + 10 + (bouton_hauteur - texte_surface.get_height()) / 2
-    fenetre.blit(texte_surface, (texte_x, texte_y))
-
-    bouton_rect = bouton_surface.get_rect()
-    bouton_rect.topleft = (pos_x, pos_y)
-
-    return bouton_rect
-
-
-
-
-
-# Définir l'état du jeu
-game_state = "menu"
 
 # Créer une boucle principale
 running = True
@@ -98,14 +61,14 @@ while running:
         # Importer le fichier jouer.py
         import jouer
         # Exécuter la fonction principale du fichier jouer.py
-        jouer.main()
+        jouer.principal()
 
     # Si l'état du jeu est paramètres, exécuter le code du fichier parametres.py
     if game_state == "parametres":
         # Importer le fichier parametres.py
         import parametres
         # Exécuter la fonction principale du fichier parametres.py
-        parametres.main()
+        parametres.principal()
 
     # Mettre à jour l'affichage
     pygame.display.flip()
