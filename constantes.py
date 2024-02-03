@@ -14,18 +14,19 @@ HAUTEUR = 600
 
 fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
-# Définir l'état du jeu
-game_state = "menu"
+game_state = ""
 
 bouton_background = 'assets/images/bouton_background.png'
 
+#running
+running = True
 
 #creer boutons
-def creer_bouton(image, texte, taille_texte, bouton_largeur, bouton_hauteur, pos_x, pos_y):
+def creer_bouton(image, texte, taille_texte, couleur_texte, bouton_largeur, bouton_hauteur, pos_x, pos_y):
 
     font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", taille_texte)
 
-    texte_surface = font.render(texte, True, NOIR)
+    texte_surface = font.render(texte, True, couleur_texte)
 
     bouton_surface = pygame.Surface((bouton_largeur, bouton_hauteur))
     bouton_surface.set_alpha(0)
