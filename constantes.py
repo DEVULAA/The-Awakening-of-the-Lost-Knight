@@ -36,14 +36,40 @@ personnage_dos_marche2 = pygame.transform.scale(personnage_dos_marche2, (personn
 personnage_face = pygame.image.load("assets/images/personnage/Vu_face.png")
 personnage_face = pygame.transform.scale(personnage_face, (personnage_face.get_width() * 3, personnage_face.get_height() * 3))
 
+personnage_face_marche1 = pygame.image.load("assets/images/personnage/Vu_face_-_Pied_droit_bas.png")
+personnage_face_marche1 = pygame.transform.scale(personnage_face_marche1, (personnage_face_marche1.get_width() * 3, personnage_face_marche1.get_height() * 3))
+
+personnage_face_marche2 = pygame.image.load("assets/images/personnage/Vu_face_-_Pied_gauche_bas.png")
+personnage_face_marche2 = pygame.transform.scale(personnage_face_marche2, (personnage_face_marche2.get_width() * 3, personnage_face_marche2.get_height() * 3))
+
+personnage_droite = pygame.image.load("assets/images/personnage/Vu_cote_droite.png")
+personnage_droite = pygame.transform.scale(personnage_droite, (personnage_droite.get_width() * 3, personnage_droite.get_height() * 3))
+
+personnage_droite_marche1 = pygame.image.load("assets/images/personnage/Vu_cote_droite_-_pied_droit_arriere.png")
+personnage_droite_marche1 = pygame.transform.scale(personnage_droite_marche1, (personnage_droite_marche1.get_width() * 3, personnage_droite_marche1.get_height() * 3))
+
+personnage_droite_marche2 = pygame.image.load("assets/images/personnage/Vu_cote_droite_-_pied_gauche_arriere.png")
+personnage_droite_marche2 = pygame.transform.scale(personnage_droite_marche2, (personnage_droite_marche2.get_width() * 3, personnage_droite_marche2.get_height() * 3))
+
+
+personnage_gauche = pygame.image.load("assets/images/personnage/Vu_cote_gauche.png")
+personnage_gauche = pygame.transform.scale(personnage_gauche, (personnage_gauche.get_width() * 3, personnage_gauche.get_height() * 3))
+
+personnage_gauche_marche1 = pygame.image.load("assets/images/personnage/Vu_cote_gauche_-_pied_droite_arriere.png")
+personnage_gauche_marche1 = pygame.transform.scale(personnage_gauche_marche1, (personnage_gauche_marche1.get_width() * 3, personnage_gauche_marche1.get_height() * 3))
+
+personnage_gauche_marche2 = pygame.image.load("assets/images/personnage/Vu_cote_gauche_-_pied_gauche_arriere_.png")
+personnage_gauche_marche2 = pygame.transform.scale(personnage_gauche_marche2, (personnage_gauche_marche2.get_width() * 3, personnage_gauche_marche2.get_height() * 3))
+
+
 pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
 
 carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer par le chemin de votre propre carte
 
 
-
-menu_est_affiche = False
 pause = False
+
+
 
 #running
 running = True
