@@ -110,3 +110,6 @@ def animation(sens):
     elif sens == "bas":
         fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
 
+
+
+
