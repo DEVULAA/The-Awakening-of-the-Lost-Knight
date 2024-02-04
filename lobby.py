@@ -56,7 +56,8 @@ def principal():
 
         if not c.pause:
 
-            if touches[pygame.K_LEFT]:
+            if touches[pygame.K_LEFT] or touches[pygame.K_q]:
+
                 offset_carte[0] += 4
 
                 if compteur_animation % vitesse_animation == 0:
@@ -66,7 +67,8 @@ def principal():
 
                 derniere_direction = "gauche"
 
-            elif touches[pygame.K_RIGHT]:
+            elif touches[pygame.K_RIGHT] or touches[pygame.K_d]:
+
                 offset_carte[0] -= 4
 
                 if compteur_animation % vitesse_animation == 0:
@@ -74,12 +76,12 @@ def principal():
                 fenetre.blit(droite_animation[current_frame_droite],
                              c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
-
-
                 derniere_direction = "droite"
 
-            elif touches[pygame.K_UP]:
+            elif touches[pygame.K_UP] or touches[pygame.K_z]:
+
                 offset_carte[1] += 4
+
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
                 fenetre.blit(dos_animation[current_frame_dos],
@@ -87,9 +89,10 @@ def principal():
 
                 derniere_direction = "haut"
 
-            elif touches[pygame.K_DOWN]:
+            elif touches[pygame.K_DOWN] or touches[pygame.K_s]:
 
                 offset_carte[1] -= 4
+
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_face = (current_frame_face + 1) % len(face_animation)
                 fenetre.blit(face_animation[current_frame_face],

@@ -38,6 +38,7 @@ def principal():
                 if bouton_continuer.collidepoint(mouse_x, mouse_y):
                     c.pause = False
 
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     c.pause = False

@@ -16,6 +16,7 @@ icone = pygame.image.load('assets/images/icone.png')
 
 pygame.display.set_icon(icone)
 
+logo = pygame.transform.scale(icone, (icone.get_width() * 6, icone.get_height() * 6))
 
 
 # Définir l'état du jeu
@@ -27,12 +28,14 @@ while c.running:
     # Si l'état du jeu est le menu de départ, afficher les boutons
     if c.game_state == "menu":
         # Remplir l'écran avec une couleur de fond
+
         fenetre.fill(c.BLANC)
+        fenetre.blit(logo, logo.get_rect(center=(c.LARGEUR//2, 140)))
 
         # Afficher les trois boutons
-        bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, 290, 233)
-        bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50,290, 313)
-        bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, 290, 393)
+        bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, 275, 273)
+        bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50,275, 353)
+        bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, 275, 433)
 
     # Gérer les événements
     for event in pygame.event.get():
