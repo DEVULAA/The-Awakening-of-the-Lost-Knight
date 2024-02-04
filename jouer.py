@@ -17,3 +17,6 @@ def principal():
         if event.type == pygame.QUIT:
             c.running = False
 
+        import lobby
+        lobby.principal()
+

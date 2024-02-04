@@ -21,12 +21,10 @@ c.game_state = "menu"
 # Créer une boucle principale
 while c.running:
 
-    # Remplir l'écran avec une couleur de fond
-    fenetre.fill(c.BLANC)
-
-
     # Si l'état du jeu est le menu de départ, afficher les boutons
     if c.game_state == "menu":
+        # Remplir l'écran avec une couleur de fond
+        fenetre.fill(c.BLANC)
 
         # Afficher les trois boutons
         bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, 290, 233)
@@ -54,7 +52,7 @@ while c.running:
                 c.running = False
 
 
-    # Si l'état du jeu est jouer, exécuter le code du fichier jouer.py
+    # Si l'état du jeu est "jouer", exécuter le code du fichier jouer.py
     if c.game_state == "jouer":
         # Importer le fichier jouer.py
         import jouer

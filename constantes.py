@@ -1,5 +1,5 @@
 import pygame
-
+FPS = 60
 # couleurs
 BLANC = (255, 255, 255)
 NOIR = (0, 0, 0)
@@ -7,6 +7,14 @@ ROUGE = (255, 0, 0)
 VERT = (0, 255, 0)
 BLEU = (0, 0, 255)
 
+zoom_carte = 2
+
+#assets
+bouton_background = "assets/images/bouton_background.png"
+
+# Chargement du personnage
+personnage = pygame.image.load("assets/images/personnage.png")  # Assurez-vous de remplacer par le chemin de votre propre personnage
+carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer par le chemin de votre propre carte
 
 #fenetre
 LARGEUR = 800
@@ -16,7 +24,7 @@ fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
 game_state = ""
 
-bouton_background = 'assets/images/bouton_background.png'
+verif_echap = 0
 
 #running
 running = True
