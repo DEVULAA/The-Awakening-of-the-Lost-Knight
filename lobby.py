@@ -31,6 +31,9 @@ def principal():
     current_frame_gauche = 0
     derniere_direction = "haut"
 
+    compteur_animation = 0
+    vitesse_animation = 6
+
     while c.running:
 
         for event in pygame.event.get():
@@ -55,36 +58,44 @@ def principal():
 
             if touches[pygame.K_LEFT]:
                 offset_carte[0] += 4
+
+                if compteur_animation % vitesse_animation == 0:
+                    current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
                 fenetre.blit(gauche_animation[current_frame_gauche],
                              c.personnage_gauche.get_rect(center=(c.pos_personnage)))
-
-                current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
 
                 derniere_direction = "gauche"
 
             elif touches[pygame.K_RIGHT]:
                 offset_carte[0] -= 4
+
+                if compteur_animation % vitesse_animation == 0:
+                    current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
                 fenetre.blit(droite_animation[current_frame_droite],
                              c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
-                current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
+
 
                 derniere_direction = "droite"
 
             elif touches[pygame.K_UP]:
                 offset_carte[1] += 4
+                if compteur_animation % vitesse_animation == 0:
+                    current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
                 fenetre.blit(dos_animation[current_frame_dos],
                                 c.personnage_face.get_rect(center=(c.pos_personnage)))  # Affichage du personnage
-                current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
+
                 derniere_direction = "haut"
 
             elif touches[pygame.K_DOWN]:
 
                 offset_carte[1] -= 4
+                if compteur_animation % vitesse_animation == 0:
+                    current_frame_face = (current_frame_face + 1) % len(face_animation)
                 fenetre.blit(face_animation[current_frame_face],
                              c.personnage_face.get_rect(center=(c.pos_personnage)))  # Affichage du personnage
 
-                current_frame_face = (current_frame_face + 1) % len(face_animation)
+
                 derniere_direction = "bas"
 
             else: #Aucune touche n'est enfoncée
@@ -112,4 +123,6 @@ def principal():
 
         # Mets à jour les FPS
         pygame.time.Clock().tick(c.FPS)
+
+        compteur_animation += 1
 

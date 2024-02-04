@@ -1,8 +1,4 @@
-afficher_logo()
-avancer(vitesse, sens)
-afficher_carte()
-changer_page(page)
-afficher_objet(objet)
+afficher_objet(objet) -> afficher sur la map
 verification_niveau() -> True si le perso est sur un niveau dans la map (les mêmes coordonnées que l'objet "niveau")
 afficher_niveau(pos)
 changer_resolution(resolution)
