@@ -81,9 +81,6 @@ def creer_bouton(image, texte, taille_texte, couleur_texte, bouton_largeur, bout
 def animation(sens):
     if sens == "haut":
         fenetre.blit(personnage_dos, personnage_dos.get_rect(center=(pos_personnage)))
-
-    if sens == "bas":
+    elif sens == "bas":
         fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
-
-
 

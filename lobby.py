@@ -46,8 +46,7 @@ def principal():
         if not c.pause:
 
             if touches[pygame.K_LEFT]:
-                offset_carte[0] += 4
-
+               offset_carte[0] += 4
             if touches[pygame.K_RIGHT]:
                 offset_carte[0] -= 4
             if touches[pygame.K_UP]:
@@ -56,6 +55,8 @@ def principal():
             if touches[pygame.K_DOWN]:
                 offset_carte[1] -= 4
                 c.animation("bas")
+
+
 
         # Mettre à jour l'affichage
         pygame.display.flip()
