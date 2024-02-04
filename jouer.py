@@ -1,6 +1,6 @@
 import pygame
 import constantes as c
-
+import lobby
 # Initialiser pygame
 pygame.init()
 
@@ -17,6 +17,6 @@ def principal():
         if event.type == pygame.QUIT:
             c.running = False
 
-        import lobby
+
         lobby.principal()
 

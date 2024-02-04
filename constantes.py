@@ -1,5 +1,7 @@
 import pygame
+
 FPS = 60
+
 # couleurs
 BLANC = (255, 255, 255)
 NOIR = (0, 0, 0)
@@ -7,24 +9,41 @@ ROUGE = (255, 0, 0)
 VERT = (0, 255, 0)
 BLEU = (0, 0, 255)
 
+# fenetre
+LARGEUR = 800
+HAUTEUR = 600
+
+fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
+surface_pause = pygame.Surface((LARGEUR, HAUTEUR), pygame.SRCALPHA)
+
+game_state = ""
+
 zoom_carte = 2
 
 #assets
 bouton_background = "assets/images/bouton_background.png"
 
 # Chargement du personnage
-personnage = pygame.image.load("assets/images/personnage.png")  # Assurez-vous de remplacer par le chemin de votre propre personnage
+personnage_dos = pygame.image.load("assets/images/personnage/Vu_dos.png")
+personnage_dos = pygame.transform.scale(personnage_dos, (personnage_dos.get_width() * 3, personnage_dos.get_height() * 3))
+
+personnage_dos_marche1 = pygame.image.load("assets/images/personnage/Pied_gauche_bas.png")
+personnage_dos_marche1 = pygame.transform.scale(personnage_dos_marche1, (personnage_dos_marche1.get_width() * 3, personnage_dos_marche1.get_height() * 3))
+
+personnage_dos_marche2 = pygame.image.load("assets/images/personnage/Pied_droit_bas.png")
+personnage_dos_marche2 = pygame.transform.scale(personnage_dos_marche2, (personnage_dos_marche2.get_width() * 3, personnage_dos_marche2.get_height() * 3))
+
+personnage_face = pygame.image.load("assets/images/personnage/Vu_face.png")
+personnage_face = pygame.transform.scale(personnage_face, (personnage_face.get_width() * 3, personnage_face.get_height() * 3))
+
+pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
+
 carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer par le chemin de votre propre carte
 
-#fenetre
-LARGEUR = 800
-HAUTEUR = 600
 
-fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
-game_state = ""
-
-verif_echap = 0
+menu_est_affiche = False
+pause = False
 
 #running
 running = True
@@ -58,5 +77,13 @@ def creer_bouton(image, texte, taille_texte, couleur_texte, bouton_largeur, bout
     bouton_rect.topleft = (pos_x, pos_y)
 
     return bouton_rect
+
+def animation(sens):
+    if sens == "haut":
+        fenetre.blit(personnage_dos, personnage_dos.get_rect(center=(pos_personnage)))
+
+    if sens == "bas":
+        fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
+
 
 
