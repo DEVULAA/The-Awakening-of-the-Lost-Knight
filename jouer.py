@@ -7,6 +7,7 @@ pygame.init()
 # Créer la fenêtre du jeu
 fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
+
 def principal():
 
     fenetre.fill(c.BLANC)

@@ -1,6 +1,7 @@
 # Importer le module pygame
 import pygame
 import constantes as c
+import tkinter as tk
 
 # Initialiser pygame
 pygame.init()
@@ -11,7 +12,6 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 # Définir le titre et l'icône du jeu
 pygame.display.set_caption("The Awakening of the Lost Knight")
-
 
 
 
