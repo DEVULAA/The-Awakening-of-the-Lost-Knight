@@ -16,3 +16,6 @@ mettre_degat_boss(nb_degat)
 mettre_degat_joueur(nb_degat)
 boss_attaquer()
 animation_attaque()
+
+
+quand bonhomme arrive pres vague -> son de l'eau
