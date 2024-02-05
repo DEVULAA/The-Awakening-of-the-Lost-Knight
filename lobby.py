@@ -16,6 +16,8 @@ face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_fac
 droite_animation = [c.personnage_droite, c.personnage_droite_marche1, c.personnage_droite_marche2]
 gauche_animation = [c.personnage_gauche, c.personnage_gauche_marche1, c.personnage_gauche_marche2]
 
+ombre = pygame.image.load("assets/images/personnage/shadow.png")
+ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
 
 def principal():
 
@@ -49,9 +51,13 @@ def principal():
 
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
+        fenetre.blit(ombre,
+                     ombre.get_rect(center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height()+5) // 2)))
+
 
 
         touches = pygame.key.get_pressed()
+
 
 
         if not c.pause:
