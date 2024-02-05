@@ -71,3 +71,5 @@ while c.running:
         import parametres
         # Exécuter la fonction principale du fichier parametres.py
         parametres.principal()
+
+    pygame.display.flip()
