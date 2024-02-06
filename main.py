@@ -33,9 +33,9 @@ while c.running:
         fenetre.blit(logo, logo.get_rect(center=(c.LARGEUR//2, 140)))
 
         # Afficher les trois boutons
-        bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, 275, 273)
-        bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50,275, 353)
-        bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, 275, 433)
+        bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 273)
+        bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 353)
+        bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 433)
 
     # Gérer les événements
     for event in pygame.event.get():
