@@ -19,6 +19,17 @@ gauche_animation = [c.personnage_gauche, c.personnage_gauche_marche1, c.personna
 ombre = pygame.image.load("assets/images/personnage/shadow.png")
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
 
+bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
+bouton_shop = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() * 3, bouton_shop.get_height() * 3))
+rect_bouton_shop = bouton_shop.get_rect(topright=(c.LARGEUR - 8, 8))
+
+# Création de l'ombre
+ombre_bouton_shop = bouton_shop.copy()  # Crée une copie de l'image du bouton shop
+ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # Remplit l'image avec la couleur de l'ombre  # Applique une ombre semi-transparente
+
+# Création de l'image du bouton shop lorsqu'il est survolé
+bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
+
 def principal():
 
     # Position de la carte
@@ -36,6 +47,8 @@ def principal():
     compteur_animation = 0
     vitesse_animation = 6
 
+
+
     while c.running:
 
         for event in pygame.event.get():
@@ -43,24 +56,42 @@ def principal():
             if event.type == pygame.QUIT:
                 c.running = False
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Obtenir la position de la souris
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                # Si le bouton jouer est cliqué, changer l'état du jeu
+                if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
+                        import magasin
+                        magasin.principal()  # Exécute la fonction principal() du module magasin
+
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_ESCAPE:
                     import menu_echap
                     menu_echap.principal()
 
+
+
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
         fenetre.blit(ombre,
                      ombre.get_rect(center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height()+5) // 2)))
 
+        fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
+        fenetre.blit(bouton_shop, rect_bouton_shop)
 
 
         touches = pygame.key.get_pressed()
 
 
-
         if not c.pause:
+
+            # Affichage du bouton shop
+            if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
+                fenetre.blit(bouton_shop_hover, rect_bouton_shop.move(-1,
+                                                                      -1))  # Affiche la version agrandie du bouton shop, décalée de 1 pixel vers la gauche et vers le haut pour centrer l'agrandissement
+            else:
+                fenetre.blit(bouton_shop, rect_bouton_shop)
 
             if touches[pygame.K_LEFT] or touches[pygame.K_q]:
 
