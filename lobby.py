@@ -4,7 +4,6 @@ import constantes as c
 pygame.init()
 
 # Créer la fenêtre du jeu
-
 fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 # Chargement de la carte
