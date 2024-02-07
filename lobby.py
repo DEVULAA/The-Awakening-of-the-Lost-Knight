@@ -60,6 +60,8 @@ def principal():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 # Si le bouton jouer est cliqué, changer l'état du jeu
                 if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
+
+
                         import magasin
                         magasin.principal()  # Exécute la fonction principal() du module magasin
 
