@@ -8,7 +8,7 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 # Chargement de la carte
 carte = c.carte
-carte = pygame.transform.scale(carte, (carte.get_width() * 5, carte.get_height() * 5))
+carte = pygame.transform.scale(carte, (carte.get_width() * 3, carte.get_height() * 3))
 
 dos_animation = [c.personnage_dos, c.personnage_dos_marche1, c.personnage_dos_marche2]
 face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_face_marche2]
@@ -32,7 +32,7 @@ bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width()
 def principal():
 
     # Position de la carte
-    offset_carte = [(c.LARGEUR // 2) + 450, (c.HAUTEUR // 2) - 3980]
+    offset_carte = [c.LARGEUR, c.HAUTEUR]
 
     offset_carte[0] += 1 # Update la carte pour qu'elle s'affiche
     fenetre.fill(c.BLANC)
@@ -96,7 +96,7 @@ def principal():
 
             if touches[pygame.K_LEFT] or touches[pygame.K_q]:
 
-                offset_carte[0] += 4
+                offset_carte[0] += 5
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
@@ -107,7 +107,7 @@ def principal():
 
             elif touches[pygame.K_RIGHT] or touches[pygame.K_d]:
 
-                offset_carte[0] -= 4
+                offset_carte[0] -= 5
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
@@ -118,7 +118,7 @@ def principal():
 
             elif touches[pygame.K_UP] or touches[pygame.K_z]:
 
-                offset_carte[1] += 4
+                offset_carte[1] += 5
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
@@ -129,7 +129,7 @@ def principal():
 
             elif touches[pygame.K_DOWN] or touches[pygame.K_s]:
 
-                offset_carte[1] -= 4
+                offset_carte[1] -= 5
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_face = (current_frame_face + 1) % len(face_animation)
