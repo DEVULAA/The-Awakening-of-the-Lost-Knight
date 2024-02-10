@@ -68,7 +68,7 @@ carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer 
 
 
 pause = False
-
+est_menu = False
 
 
 #running

@@ -85,7 +85,7 @@ def principal():
         touches = pygame.key.get_pressed()
 
 
-        if not c.pause:
+        if not c.pause and not c.est_menu:
 
             # Affichage du bouton shop
             if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
