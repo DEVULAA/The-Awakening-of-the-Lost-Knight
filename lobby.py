@@ -114,7 +114,7 @@ def principal():
 
             if (touches[pygame.K_LEFT] or touches[pygame.K_q]):
 
-                offset_carte[0] += 5
+                offset_carte[0] += 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
@@ -125,7 +125,7 @@ def principal():
 
             elif touches[pygame.K_RIGHT] or touches[pygame.K_d]:
 
-                offset_carte[0] -= 5
+                offset_carte[0] -= 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
@@ -136,7 +136,7 @@ def principal():
 
             elif touches[pygame.K_UP] or touches[pygame.K_z]:
 
-                offset_carte[1] += 5
+                offset_carte[1] += 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
@@ -146,7 +146,7 @@ def principal():
                 derniere_direction = "haut"
 
             elif touches[pygame.K_DOWN] or touches[pygame.K_s]:
-                offset_carte[1] -= 5
+                offset_carte[1] -= 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_face = (current_frame_face + 1) % len(face_animation)
