@@ -87,6 +87,12 @@ def principal():
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
+        fenetre.blit(c.chateau_sable, c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000)))
+        fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200)))
+        fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170)))
+        fenetre.blit(c.palmier, c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850)))
+
+
         fenetre.blit(ombre,
                      ombre.get_rect(center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height()+5) // 2)))
 
@@ -106,7 +112,7 @@ def principal():
             else:
                 fenetre.blit(bouton_shop, rect_bouton_shop)
 
-            if touches[pygame.K_LEFT] or touches[pygame.K_q]:
+            if (touches[pygame.K_LEFT] or touches[pygame.K_q]):
 
                 offset_carte[0] += 5
 

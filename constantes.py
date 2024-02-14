@@ -1,6 +1,6 @@
 import pygame
 
-FPS = 90
+FPS = 240
 
 # couleurs
 BLANC = (255, 255, 255)
@@ -77,10 +77,18 @@ pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
 
 carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer par le chemin de votre propre carte
 
+chateau_sable = pygame.image.load("assets/images/chateau-sable.png")
+chateau_sable = pygame.transform.scale(chateau_sable, (chateau_sable.get_width() * 2, chateau_sable.get_height() * 2))
+
+caisse = pygame.image.load("assets/images/caisse.png")
+caisse = pygame.transform.scale(caisse, (caisse.get_width() * 2, caisse.get_height() * 2))
+
+palmier = pygame.image.load("assets/images/palmier.png")
+palmier = pygame.transform.scale(palmier, (palmier.get_width() * 5, palmier.get_height() * 5))
+
 
 pause = False
 est_menu = False
-
 
 #running
 running = True
@@ -120,6 +128,7 @@ def animation(sens):
         fenetre.blit(personnage_dos, personnage_dos.get_rect(center=(pos_personnage)))
     elif sens == "bas":
         fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
+
 
 
 
