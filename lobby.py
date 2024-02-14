@@ -10,10 +10,14 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 carte = c.carte
 carte = pygame.transform.scale(carte, (carte.get_width() * 3, carte.get_height() * 3))
 
+
 dos_animation = [c.personnage_dos, c.personnage_dos_marche1, c.personnage_dos_marche2]
 face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_face_marche2]
 droite_animation = [c.personnage_droite, c.personnage_droite_marche1, c.personnage_droite_marche2]
 gauche_animation = [c.personnage_gauche, c.personnage_gauche_marche1, c.personnage_gauche_marche2]
+
+
+eau_animation = [c.eau_1, c.eau_2, c.eau_3, c.eau_4]
 
 ombre = pygame.image.load("assets/images/personnage/shadow.png")
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
@@ -46,6 +50,12 @@ def principal():
     compteur_animation = 0
     vitesse_animation = 6
 
+    eau_nb_images = 4
+    eau_duree = 1600
+    eau_laps = eau_duree // eau_nb_images
+    eau_index = 0
+    pygame.time.set_timer(pygame.USEREVENT, eau_laps)
+
 
 
     while c.running:
@@ -71,8 +81,10 @@ def principal():
                     import menu_echap
                     menu_echap.principal()
 
+            if event.type == pygame.USEREVENT:
+                eau_index = (eau_index + 1) % eau_nb_images
 
-
+        fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
         fenetre.blit(ombre,
@@ -128,7 +140,6 @@ def principal():
                 derniere_direction = "haut"
 
             elif touches[pygame.K_DOWN] or touches[pygame.K_s]:
-
                 offset_carte[1] -= 5
 
                 if compteur_animation % vitesse_animation == 0:

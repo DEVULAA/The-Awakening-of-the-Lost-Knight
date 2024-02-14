@@ -1,6 +1,6 @@
 import pygame
 
-FPS = 60
+FPS = 90
 
 # couleurs
 BLANC = (255, 255, 255)
@@ -61,6 +61,17 @@ personnage_gauche_marche1 = pygame.transform.scale(personnage_gauche_marche1, (p
 personnage_gauche_marche2 = pygame.image.load("assets/images/personnage/Vu_cote_gauche_-_pied_gauche_arriere_.png")
 personnage_gauche_marche2 = pygame.transform.scale(personnage_gauche_marche2, (personnage_gauche_marche2.get_width() * 3, personnage_gauche_marche2.get_height() * 3))
 
+eau_1 = pygame.image.load("assets/images/eau/frame_0_delay-0.3s.png")
+eau_1 = pygame.transform.scale(eau_1, (eau_1.get_width() * 3, eau_1.get_height() * 3))
+
+eau_2 = pygame.image.load("assets/images/eau/frame_1_delay-0.3s.png")
+eau_2 = pygame.transform.scale(eau_2, (eau_2.get_width() * 3, eau_2.get_height() * 3))
+
+eau_3 = pygame.image.load("assets/images/eau/frame_2_delay-0.3s.png")
+eau_3 = pygame.transform.scale(eau_3, (eau_3.get_width() * 3, eau_3.get_height() * 3))
+
+eau_4 = pygame.image.load("assets/images/eau/frame_3_delay-0.3s.png")
+eau_4 = pygame.transform.scale(eau_4, (eau_4.get_width() * 3, eau_4.get_height() * 3))
 
 pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
 
@@ -109,6 +120,11 @@ def animation(sens):
         fenetre.blit(personnage_dos, personnage_dos.get_rect(center=(pos_personnage)))
     elif sens == "bas":
         fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
+
+
+
+
+
 
 
 
