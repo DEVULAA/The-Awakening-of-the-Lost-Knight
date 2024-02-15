@@ -133,11 +133,11 @@ def animation(sens):
 
 def determinerCote(rect1, rect2):
 
-    if rect1.midtop[1] > rect2.midtop[1] + 2:
-
+    if rect1.midbottom[1] <= rect2.midtop[1] + 10:
         return "haut"
 
-    elif rect1.midtop[1] + rect1[2] < rect2.midtop[1]:
+    elif rect1.midtop[1] >= rect2.midbottom[1] - 5:
+
         return "bas"
 
     elif rect1.midleft[0] > rect2.midleft[0]:

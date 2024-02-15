@@ -13,10 +13,10 @@ def principal():
     fenetre.fill(c.BLANC)
     font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", 25)
     texte_gros = font.render("Paramètres", True, c.NOIR)
-    texte_rect = texte_gros.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - (c.HAUTEUR - 40)))
+    texte_rect = texte_gros.get_rect(center=(c.LARGEUR // 2, c.HAUTEUR - (c.HAUTEUR - 40)))
     fenetre.blit(texte_gros, texte_rect)
 
-    bouton_retour = c.creer_bouton(c.bouton_background, 'Retour', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 500)
+    bouton_retour = c.creer_bouton(c.bouton_background, 'Retour', 20, c.BLANC, 250, 50, (c.LARGEUR//2) - (250//2), 500)
 
     for event in pygame.event.get():
 
