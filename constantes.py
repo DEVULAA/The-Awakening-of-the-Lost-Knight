@@ -20,6 +20,8 @@ game_state = ""
 
 zoom_carte = 2
 
+
+
 #assets
 bouton_background = "assets/images/bouton_background.png"
 
@@ -128,6 +130,22 @@ def animation(sens):
         fenetre.blit(personnage_dos, personnage_dos.get_rect(center=(pos_personnage)))
     elif sens == "bas":
         fenetre.blit(personnage_face, personnage_face.get_rect(center=(pos_personnage)))
+
+def determinerCote(rect1, rect2):
+
+    if rect1.midtop[1] > rect2.midtop[1] + 2:
+
+        return "haut"
+
+    elif rect1.midtop[1] + rect1[2] < rect2.midtop[1]:
+        return "bas"
+
+    elif rect1.midleft[0] > rect2.midleft[0]:
+        return "gauche"
+    elif rect1.midright[0] < rect2.midright[0]:
+        return "droite"
+
+
 
 
 

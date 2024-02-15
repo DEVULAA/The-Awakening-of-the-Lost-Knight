@@ -33,12 +33,17 @@ ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # R
 # Création de l'image du bouton shop lorsqu'il est survolé
 bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
 
+rect_personnage = c.personnage_dos.get_rect(center=(c.pos_personnage))
+# rect_personnage[3] = 30
+
+touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False}
+
+
 def principal():
 
     # Position de la carte
-    offset_carte = [c.LARGEUR, c.HAUTEUR]
+    offset_carte = [c.LARGEUR + 1500, c.HAUTEUR - 1200]
 
-    offset_carte[0] += 1 # Update la carte pour qu'elle s'affiche
     fenetre.fill(c.BLANC)
 
     current_frame_dos = 0
@@ -48,7 +53,7 @@ def principal():
     derniere_direction = "haut"
 
     compteur_animation = 0
-    vitesse_animation = 6
+    vitesse_animation = 4
 
     eau_nb_images = 4
     eau_duree = 1600
@@ -56,7 +61,12 @@ def principal():
     eau_index = 0
     pygame.time.set_timer(pygame.USEREVENT, eau_laps)
 
-
+    def update_rectangles():
+        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier
+        rect_chateau_sable = c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000))
+        rect_caisse1 = c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200))
+        rect_caisse2 = c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170))
+        rect_palmier = c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850))
 
     while c.running:
 
@@ -81,6 +91,25 @@ def principal():
                     import menu_echap
                     menu_echap.principal()
 
+                if event.key == pygame.K_LEFT or event.key == pygame.K_q:
+                    touches_pressee["gauche"] = True
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    touches_pressee["droite"] = True
+                elif event.key == pygame.K_UP or event.key == pygame.K_z:
+                    touches_pressee["haut"] = True
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    touches_pressee["bas"] = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_q:
+                    touches_pressee["gauche"] = False
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    touches_pressee["droite"] = False
+                elif event.key == pygame.K_UP or event.key == pygame.K_z:
+                    touches_pressee["haut"] = False
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    touches_pressee["bas"] = False
+
             if event.type == pygame.USEREVENT:
                 eau_index = (eau_index + 1) % eau_nb_images
 
@@ -99,6 +128,7 @@ def principal():
         fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
         fenetre.blit(bouton_shop, rect_bouton_shop)
 
+        update_rectangles()
 
         touches = pygame.key.get_pressed()
 
@@ -112,7 +142,7 @@ def principal():
             else:
                 fenetre.blit(bouton_shop, rect_bouton_shop)
 
-            if (touches[pygame.K_LEFT] or touches[pygame.K_q]):
+            if touches_pressee["gauche"]:
 
                 offset_carte[0] += 7
 
@@ -123,7 +153,7 @@ def principal():
 
                 derniere_direction = "gauche"
 
-            elif touches[pygame.K_RIGHT] or touches[pygame.K_d]:
+            elif touches_pressee["droite"]:
 
                 offset_carte[0] -= 7
 
@@ -134,7 +164,7 @@ def principal():
 
                 derniere_direction = "droite"
 
-            elif touches[pygame.K_UP] or touches[pygame.K_z]:
+            elif touches_pressee["haut"]:
 
                 offset_carte[1] += 7
 
@@ -145,7 +175,7 @@ def principal():
 
                 derniere_direction = "haut"
 
-            elif touches[pygame.K_DOWN] or touches[pygame.K_s]:
+            elif touches_pressee["bas"]:
                 offset_carte[1] -= 7
 
                 if compteur_animation % vitesse_animation == 0:
@@ -170,12 +200,23 @@ def principal():
                 elif derniere_direction == "droite":
                     fenetre.blit(c.personnage_droite, c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
+            # À chaque déplacement du personnage, vérifie s'il y a une collision avec les objets.
+            if touches_pressee["gauche"] or touches_pressee["droite"] or touches_pressee["haut"] or touches_pressee[
+                "bas"]:
 
+                print(c.determinerCote(rect_personnage, rect_chateau_sable))
+                if rect_personnage.colliderect(rect_chateau_sable):
+                    # Collision détectée, annule le déplacement dans la direction correspondante
+                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(rect_personnage, rect_chateau_sable) == "gauche":
+                        offset_carte[0] -= 7
+                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(rect_personnage, rect_chateau_sable) == "droite":
+                        offset_carte[0] += 7
+                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage, rect_chateau_sable) == "haut":
+                        offset_carte[1] -= 7
+                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage, rect_chateau_sable) == "bas":
+                        offset_carte[1] += 7
 
-
-
-
-
+        pygame.draw.rect(fenetre, (0, 0, 0), rect_personnage)
         # Mettre à jour l'affichage
         pygame.display.flip()
 
