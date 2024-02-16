@@ -63,12 +63,14 @@ def principal():
     eau_index = 0
     pygame.time.set_timer(pygame.USEREVENT, eau_laps)
 
-    def update_rectangles():
-        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier
+    def update_collisions():
+        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier, objets
         rect_chateau_sable = c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000))
         rect_caisse1 = c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200))
         rect_caisse2 = c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170))
         rect_palmier = c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850))
+
+        objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2]  # liste des collisions
 
     while c.running:
 
@@ -118,19 +120,22 @@ def principal():
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
+        fenetre.blit(ombre,
+                     ombre.get_rect(
+                         center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height() + 5) // 2)))
+
         fenetre.blit(c.chateau_sable, c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000)))
         fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200)))
         fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170)))
         fenetre.blit(c.palmier, c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850)))
 
 
-        fenetre.blit(ombre,
-                     ombre.get_rect(center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height()+5) // 2)))
+
 
         fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
         fenetre.blit(bouton_shop, rect_bouton_shop)
 
-        update_rectangles()
+        update_collisions()
 
         touches = pygame.key.get_pressed()
 
@@ -202,57 +207,28 @@ def principal():
                 elif derniere_direction == "droite":
                     fenetre.blit(c.personnage_droite, c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
-            # À chaque déplacement du personnage, vérifie s'il y a une collision avec les objets.
-            if touches_pressee["gauche"] or touches_pressee["droite"] or touches_pressee["haut"] or touches_pressee[
-                "bas"]:
 
-                if rect_personnage.colliderect(rect_chateau_sable):
-                    # Collision détectée, annule le déplacement dans la direction correspondante
-                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(rect_personnage, rect_chateau_sable) == "gauche":
-                        offset_carte[0] -= 7
-                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(rect_personnage, rect_chateau_sable) == "droite":
-                        offset_carte[0] += 7
-                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage, rect_chateau_sable) == "bas":
-                        offset_carte[1] -= 7
-                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage, rect_chateau_sable) == "haut":
-                        offset_carte[1] += 7
 
-                if rect_personnage.colliderect(rect_palmier):
-                    # Collision détectée, annule le déplacement dans la direction correspondante
-                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(rect_personnage, rect_palmier) == "gauche":
-                        offset_carte[0] -= 7
-                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(rect_personnage, rect_palmier) == "droite":
-                        offset_carte[0] += 7
-                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage, rect_palmier) == "bas":
-                        offset_carte[1] -= 7
-                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage, rect_palmier) == "haut":
-                        offset_carte[1] += 7
 
-                if rect_personnage.colliderect(rect_caisse1):
+            for objet in objets:
+                if rect_personnage.colliderect(objet):
                     # Collision détectée, annule le déplacement dans la direction correspondante
-                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(rect_personnage, rect_caisse1) == "gauche":
+                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(
+                            rect_personnage, objet) == "gauche":
                         offset_carte[0] -= 7
-                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(rect_personnage, rect_caisse1) == "droite":
+                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(
+                            rect_personnage, objet) == "droite":
                         offset_carte[0] += 7
-                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage, rect_caisse1) == "bas":
+                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage,
+                                                                                                       objet) == "bas":
                         offset_carte[1] -= 7
-                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage, rect_caisse1) == "haut":
-                        offset_carte[1] += 7
-
-                if rect_personnage.colliderect(rect_caisse2):
-                    # Collision détectée, annule le déplacement dans la direction correspondante
-                    if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(rect_personnage, rect_caisse2) == "gauche":
-                        offset_carte[0] -= 7
-                    elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(rect_personnage, rect_caisse2) == "droite":
-                        offset_carte[0] += 7
-                    elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage, rect_caisse2) == "bas":
-                        offset_carte[1] -= 7
-                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage, rect_caisse2) == "haut":
+                    elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
+                                                                                                     objet) == "haut":
                         offset_carte[1] += 7
 
 
 
-        # pygame.gfxdraw.box(fenetre, rect_personnage, (0, 0, 0, 100))
+        # afficher hitbox :  pygame.gfxdraw.box(fenetre, rect_personnage, (0, 0, 0, 100))
         # Mettre à jour l'affichage
         pygame.display.flip()
 
