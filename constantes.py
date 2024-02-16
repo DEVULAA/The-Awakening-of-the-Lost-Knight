@@ -1,6 +1,6 @@
 import pygame
 
-FPS = 90
+FPS = 120
 
 # couleurs
 BLANC = (255, 255, 255)
@@ -88,6 +88,14 @@ caisse = pygame.transform.scale(caisse, (caisse.get_width() * 2, caisse.get_heig
 palmier = pygame.image.load("assets/images/palmier.png")
 palmier = pygame.transform.scale(palmier, (palmier.get_width() * 5, palmier.get_height() * 5))
 
+arbre = pygame.image.load("assets/images/arbre.png")
+arbre = pygame.transform.scale(arbre, (arbre.get_width() * 3, arbre.get_height() * 3))
+
+arbre_haut = pygame.image.load("assets/images/arbre_haut.png")
+arbre_haut = pygame.transform.scale(arbre_haut, (arbre_haut.get_width() * 3, arbre_haut.get_height() * 3))
+
+bateau = pygame.image.load("assets/images/bateau.png")
+bateau = pygame.transform.scale(bateau, (bateau.get_width() * 5.5, bateau.get_height() * 5.5))
 
 pause = False
 est_menu = False

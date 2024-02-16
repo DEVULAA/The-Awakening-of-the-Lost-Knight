@@ -64,13 +64,21 @@ def principal():
     pygame.time.set_timer(pygame.USEREVENT, eau_laps)
 
     def update_collisions():
-        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier, objets
+        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier, rect_arbre, rect_arbre_haut, pos_arbre, objets
         rect_chateau_sable = c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000))
         rect_caisse1 = c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200))
         rect_caisse2 = c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170))
         rect_palmier = c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850))
 
-        objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2]  # liste des collisions
+        rect_arbre = c.arbre.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 850))
+        rect_arbre[1] += 95
+        rect_arbre[3] = 80
+
+        pos_arbre = c.arbre.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 850))
+
+        rect_arbre_haut = c.arbre_haut.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 850))
+
+        objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2, rect_arbre]  # liste des collisions
 
     while c.running:
 
@@ -124,21 +132,22 @@ def principal():
                      ombre.get_rect(
                          center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height() + 5) // 2)))
 
-        fenetre.blit(c.chateau_sable, c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000)))
-        fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200)))
-        fenetre.blit(c.caisse, c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170)))
-        fenetre.blit(c.palmier, c.palmier.get_rect(center=(offset_carte[0] - 2200, offset_carte[1] + 850)))
-
-
-
 
         fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
         fenetre.blit(bouton_shop, rect_bouton_shop)
 
-        update_collisions()
+
 
         touches = pygame.key.get_pressed()
 
+        update_collisions()
+
+        fenetre.blit(c.chateau_sable, rect_chateau_sable)
+        fenetre.blit(c.caisse, rect_caisse1)
+        fenetre.blit(c.caisse, rect_caisse2)
+        fenetre.blit(c.palmier, rect_palmier)
+        fenetre.blit(c. arbre, pos_arbre)
+        fenetre.blit(c.bateau, c.bateau.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 1300)))
 
         if not c.pause and not c.est_menu:
 
@@ -207,10 +216,9 @@ def principal():
                 elif derniere_direction == "droite":
                     fenetre.blit(c.personnage_droite, c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
-
-
-
+            #collisions
             for objet in objets:
+
                 if rect_personnage.colliderect(objet):
                     # Collision détectée, annule le déplacement dans la direction correspondante
                     if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(
@@ -226,9 +234,10 @@ def principal():
                                                                                                      objet) == "haut":
                         offset_carte[1] += 7
 
+        # Objets dessus le personnage
+        fenetre.blit(c.arbre_haut, rect_arbre_haut)
 
-
-        # afficher hitbox :  pygame.gfxdraw.box(fenetre, rect_personnage, (0, 0, 0, 100))
+        # pygame.gfxdraw.box(fenetre, rect_arbre, (0, 0, 0, 100))
         # Mettre à jour l'affichage
         pygame.display.flip()
 
