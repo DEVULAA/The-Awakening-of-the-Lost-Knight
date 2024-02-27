@@ -17,14 +17,22 @@ logo = pygame.transform.scale(icone, (icone.get_width() * 6, icone.get_height() 
 # Définir l'état du jeu
 c.game_state = "menu"
 
+# chargement de la musique
+pygame.mixer.init()
+pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
+pygame.mixer.music.play(-1)
+
 # Créer une boucle principale
 while c.running:
+
+    pygame.mixer.music.set_volume(c.volume / 100)
 
     # Si l'état du jeu est le menu de départ, afficher les boutons principaux
     if c.game_state == "menu":
 
         # Remplir l'écran avec une couleur de fond (BLANC pour le moment)
         fenetre.fill(c.BLANC)
+
         fenetre.blit(logo, logo.get_rect(center=(c.LARGEUR//2, 140)))
 
         # Afficher les trois boutons principaux
@@ -37,6 +45,7 @@ while c.running:
 
         # Si l'utilisateur ferme la fenêtre, quitter le jeu
         if event.type == pygame.QUIT:
+            pygame.mixer.music.fadeout(500)
             c.running = False
 
         # Si l'utilisateur clique avec la souris, vérifier les boutons
@@ -47,10 +56,13 @@ while c.running:
 
             # Si le bouton jouer est cliqué, changer l'état du jeu
             if bouton_jouer.collidepoint(mouse_x, mouse_y):
+                pygame.mixer.music.fadeout(500)
                 c.game_state = "jouer"
+
 
             # Si le bouton paramètres est cliqué, changer l'état du jeu
             if bouton_parametres.collidepoint(mouse_x, mouse_y):
+
                 c.game_state = "parametres"
 
             # Si le bouton quitter est cliqué, quitter le jeu

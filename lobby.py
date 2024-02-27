@@ -11,6 +11,11 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 carte = c.carte
 carte = pygame.transform.scale(carte, (carte.get_width() * 3, carte.get_height() * 3))
 
+carte_mask = pygame.image.load("assets/images/map_mask.png").convert_alpha()
+carte_mask = pygame.transform.scale(carte_mask, (carte_mask.get_width() * 3, carte_mask.get_height() * 3))
+
+
+
 
 dos_animation = [c.personnage_dos, c.personnage_dos_marche1, c.personnage_dos_marche2]
 face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_face_marche2]
@@ -82,9 +87,15 @@ def principal():
 
     while c.running:
 
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load("assets/sons/musique/lobby.wav")
+            pygame.mixer.music.play(-1)
+
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
+                pygame.mixer.music.fadeout(500)
                 c.running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -127,6 +138,7 @@ def principal():
 
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
+        fenetre.blit(carte_mask, carte_mask.get_rect(center=(offset_carte))) #Affichage de la carte mask
 
         fenetre.blit(ombre,
                      ombre.get_rect(
@@ -146,7 +158,7 @@ def principal():
         fenetre.blit(c.caisse, rect_caisse1)
         fenetre.blit(c.caisse, rect_caisse2)
         fenetre.blit(c.palmier, rect_palmier)
-        fenetre.blit(c. arbre, pos_arbre)
+        fenetre.blit(c.arbre, pos_arbre)
         fenetre.blit(c.bateau, c.bateau.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 1300)))
 
         if not c.pause and not c.est_menu:
@@ -246,3 +258,4 @@ def principal():
 
         compteur_animation += 1
 
+    pygame.quit()

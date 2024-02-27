@@ -20,7 +20,7 @@ game_state = ""
 
 zoom_carte = 2
 
-
+volume = 30
 
 #assets
 bouton_background = "assets/images/bouton_background.png"
@@ -77,7 +77,7 @@ eau_4 = pygame.transform.scale(eau_4, (eau_4.get_width() * 3, eau_4.get_height()
 
 pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
 
-carte = pygame.image.load("assets/images/map.png")  # Assurez-vous de remplacer par le chemin de votre propre carte
+carte = pygame.image.load("assets/images/map.png").convert_alpha()  # Assurez-vous de remplacer par le chemin de votre propre carte
 
 chateau_sable = pygame.image.load("assets/images/chateau-sable.png")
 chateau_sable = pygame.transform.scale(chateau_sable, (chateau_sable.get_width() * 2, chateau_sable.get_height() * 2))
