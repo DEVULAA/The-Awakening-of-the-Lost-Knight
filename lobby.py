@@ -11,9 +11,8 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 carte = c.carte
 carte = pygame.transform.scale(carte, (carte.get_width() * 3, carte.get_height() * 3))
 
-carte_mask = pygame.image.load("assets/images/map_mask.png").convert_alpha()
-carte_mask = pygame.transform.scale(carte_mask, (carte_mask.get_width() * 3, carte_mask.get_height() * 3))
-
+carte_masque = pygame.image.load("assets/images/map_mask.png").convert_alpha()
+carte_masque = pygame.transform.scale(carte_masque, (carte_masque.get_width() * 3, carte_masque.get_height() * 3))
 
 
 
@@ -69,7 +68,7 @@ def principal():
     pygame.time.set_timer(pygame.USEREVENT, eau_laps)
 
     def update_collisions():
-        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier, rect_arbre, rect_arbre_haut, pos_arbre, objets
+        global rect_chateau_sable, rect_caisse1, rect_caisse2, rect_palmier, rect_arbre, rect_arbre_haut, pos_arbre, objets, carte_masque_mask
         rect_chateau_sable = c.chateau_sable.get_rect(center=(offset_carte[0] - 2300, offset_carte[1] + 1000))
         rect_caisse1 = c.caisse.get_rect(center=(offset_carte[0] - 2100, offset_carte[1] + 1200))
         rect_caisse2 = c.caisse.get_rect(center=(offset_carte[0] - 2170, offset_carte[1] + 1170))
@@ -82,6 +81,7 @@ def principal():
         pos_arbre = c.arbre.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 850))
 
         rect_arbre_haut = c.arbre_haut.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 850))
+
 
         objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2, rect_arbre]  # liste des collisions
 
@@ -138,7 +138,6 @@ def principal():
 
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
-        fenetre.blit(carte_mask, carte_mask.get_rect(center=(offset_carte))) #Affichage de la carte mask
 
         fenetre.blit(ombre,
                      ombre.get_rect(
@@ -245,6 +244,15 @@ def principal():
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
                         offset_carte[1] += 7
+
+            if carte.get_rect(center=(offset_carte))[0] >= 0 :
+                offset_carte[0] -= 7
+            if carte.get_rect(center=(offset_carte))[1] >= 0 :
+                offset_carte[1] -= 7
+            if carte.get_rect(center=(offset_carte))[1] <= -2640 :
+                offset_carte[1] += 7
+            if carte.get_rect(center=(offset_carte))[0] <= -4960 :
+                offset_carte[0] += 7
 
         # Objets dessus le personnage
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
