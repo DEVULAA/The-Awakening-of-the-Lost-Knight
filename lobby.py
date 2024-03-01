@@ -247,12 +247,16 @@ def principal():
 
             if carte.get_rect(center=(offset_carte))[0] >= 0 :
                 offset_carte[0] -= 7
+
             if carte.get_rect(center=(offset_carte))[1] >= 0 :
                 offset_carte[1] -= 7
+
             if carte.get_rect(center=(offset_carte))[1] <= -2640 :
                 offset_carte[1] += 7
+
             if carte.get_rect(center=(offset_carte))[0] <= -4960 :
                 offset_carte[0] += 7
+
 
         # Objets dessus le personnage
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
