@@ -27,9 +27,19 @@ def principal():
 
     while c.pause:
 
+        font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", 25)
+        texte_gros = font.render("Pause", True, c.NOIR)
+        texte_rect = texte_gros.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - (c.HAUTEUR - 40)))
+
+        fenetre.blit(texte_gros, texte_rect)
+
+        bouton_continuer = c.creer_bouton(c.bouton_background, 'Continuer', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 400)
+        bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 500)
 
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
+                pygame.mixer.music.fadeout(500)
                 pygame.quit()
                 quit()
 
@@ -40,6 +50,10 @@ def principal():
                 if bouton_continuer.collidepoint(mouse_x, mouse_y):
                     c.pause = False
 
+                if bouton_quitter.collidepoint(mouse_x, mouse_y):
+                    pygame.mixer.music.fadeout(500)
+                    pygame.quit()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     c.pause = False
@@ -47,14 +61,7 @@ def principal():
 
 
 
-        font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", 25)
-        texte_gros = font.render("Pause", True, c.NOIR)
-        texte_rect = texte_gros.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - (c.HAUTEUR - 40)))
 
-        fenetre.blit(texte_gros, texte_rect)
-
-        bouton_continuer = c.creer_bouton(c.bouton_background, 'Continuer', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 400)
-        bouton_menu = c.creer_bouton(c.bouton_background, 'Menu', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 500)
 
 
 

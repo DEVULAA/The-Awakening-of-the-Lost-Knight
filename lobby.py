@@ -14,6 +14,7 @@ carte = pygame.transform.scale(carte, (carte.get_width() * 3, carte.get_height()
 carte_masque = pygame.image.load("assets/images/map_mask.png").convert_alpha()
 carte_masque = pygame.transform.scale(carte_masque, (carte_masque.get_width() * 3, carte_masque.get_height() * 3))
 
+carte_masque_mask = pygame.mask.from_surface(carte_masque)
 
 
 dos_animation = [c.personnage_dos, c.personnage_dos_marche1, c.personnage_dos_marche2]
@@ -46,6 +47,12 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False
 
 
 def principal():
+
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
+    pygame.mixer.music.play()
+
+    pygame.mixer.music.set_volume(c.volume / 100)
 
     # Position de la carte
     offset_carte = [c.LARGEUR + 1500, c.HAUTEUR - 1200]
@@ -86,6 +93,7 @@ def principal():
         objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2, rect_arbre]  # liste des collisions
 
     while c.running:
+
 
         if not pygame.mixer.music.get_busy():
             pygame.mixer.music.unload()
@@ -138,6 +146,8 @@ def principal():
 
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
+
+
 
         fenetre.blit(ombre,
                      ombre.get_rect(
@@ -244,18 +254,18 @@ def principal():
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
                         offset_carte[1] += 7
-
+            print(carte.get_rect(center=(offset_carte)))
             if carte.get_rect(center=(offset_carte))[0] >= 0 :
-                offset_carte[0] -= 7
+                offset_carte[0] -= 7 #gauche
 
             if carte.get_rect(center=(offset_carte))[1] >= 0 :
-                offset_carte[1] -= 7
+                offset_carte[1] -= 7 #haut
 
             if carte.get_rect(center=(offset_carte))[1] <= -2640 :
-                offset_carte[1] += 7
+                offset_carte[1] += 7 #bas
 
             if carte.get_rect(center=(offset_carte))[0] <= -4960 :
-                offset_carte[0] += 7
+                offset_carte[0] += 7 #droite
 
 
         # Objets dessus le personnage

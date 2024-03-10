@@ -40,34 +40,35 @@ while c.running:
         bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 353)
         bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 433)
 
-    # Gérer les événements (si cliqué ou autre)
-    for event in pygame.event.get():
+    if c.game_state == "menu":
+        # Gérer les événements (si cliqué ou autre)
+        for event in pygame.event.get():
 
-        # Si l'utilisateur ferme la fenêtre, quitter le jeu
-        if event.type == pygame.QUIT:
-            pygame.mixer.music.fadeout(500)
-            c.running = False
-
-        # Si l'utilisateur clique avec la souris, vérifier les boutons
-        if event.type == pygame.MOUSEBUTTONDOWN:
-
-            # Obtenir la position de la souris
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-
-            # Si le bouton jouer est cliqué, changer l'état du jeu
-            if bouton_jouer.collidepoint(mouse_x, mouse_y):
+            # Si l'utilisateur ferme la fenêtre, quitter le jeu
+            if event.type == pygame.QUIT:
                 pygame.mixer.music.fadeout(500)
-                c.game_state = "jouer"
-
-
-            # Si le bouton paramètres est cliqué, changer l'état du jeu
-            if bouton_parametres.collidepoint(mouse_x, mouse_y):
-
-                c.game_state = "parametres"
-
-            # Si le bouton quitter est cliqué, quitter le jeu
-            if bouton_quitter.collidepoint(mouse_x, mouse_y):
                 c.running = False
+
+            # Si l'utilisateur clique avec la souris, vérifier les boutons
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                # Obtenir la position de la souris
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+
+                # Si le bouton jouer est cliqué, changer l'état du jeu
+                if bouton_jouer.collidepoint(mouse_x, mouse_y):
+                    pygame.mixer.music.fadeout(500)
+                    c.game_state = "jouer"
+
+
+                # Si le bouton paramètres est cliqué, changer l'état du jeu
+                if bouton_parametres.collidepoint(mouse_x, mouse_y):
+
+                    c.game_state = "parametres"
+
+                # Si le bouton quitter est cliqué, quitter le jeu
+                if bouton_quitter.collidepoint(mouse_x, mouse_y):
+                    c.running = False
 
 
     # Si l'état du jeu est "jouer", exécuter le code du fichier jouer.py

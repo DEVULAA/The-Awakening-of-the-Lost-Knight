@@ -145,7 +145,6 @@ def determinerCote(rect1, rect2):
         return "haut"
 
     elif rect1.midtop[1] >= rect2.midbottom[1] - 5:
-
         return "bas"
 
     elif rect1.midleft[0] > rect2.midleft[0]:
@@ -161,6 +160,11 @@ def afficher_alpha(fenetre, source, coordonnees, opacite):
     temp.blit(source, (0, 0))
     temp.set_alpha(opacite)
     fenetre.blit(temp, coordonnees)
+
+
+
+
+
 
 
 
