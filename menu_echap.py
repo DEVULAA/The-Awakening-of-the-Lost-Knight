@@ -17,7 +17,7 @@ buffer_surface = pygame.Surface(fenetre.get_size(), pygame.SRCALPHA)
 def principal():
 
     c.pause = True
-
+    fenetre.blit(c.image_pause, (0, 0))
     arriere_plan = pygame.Surface((c.LARGEUR, c.HAUTEUR), pygame.SRCALPHA)
     arriere_plan = arriere_plan.convert_alpha()
     arriere_plan.fill((128, 128, 128, 128))

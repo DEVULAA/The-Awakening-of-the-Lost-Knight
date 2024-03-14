@@ -1,6 +1,8 @@
 import pygame
 import constantes as c
 import pygame.gfxdraw
+import pgeng
+
 # Initialiser pygame
 pygame.init()
 
@@ -119,6 +121,7 @@ def principal():
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_ESCAPE:
+                    c.image_pause = fenetre.copy()
                     import menu_echap
                     menu_echap.principal()
 
@@ -254,7 +257,6 @@ def principal():
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
                         offset_carte[1] += 7
-            print(carte.get_rect(center=(offset_carte)))
             if carte.get_rect(center=(offset_carte))[0] >= 0 :
                 offset_carte[0] -= 7 #gauche
 

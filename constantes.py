@@ -18,6 +18,9 @@ surface_pause = pygame.Surface((LARGEUR, HAUTEUR), pygame.SRCALPHA)
 
 game_state = ""
 
+image_pause = pygame.Surface((0,0))
+
+
 zoom_carte = 2
 
 volume = 30
