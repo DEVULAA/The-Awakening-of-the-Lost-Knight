@@ -2,6 +2,8 @@ import pygame
 import constantes as c
 import pygame.gfxdraw
 import pgeng
+from pyvidplayer2 import Video
+
 
 # Initialiser pygame
 pygame.init()
@@ -18,6 +20,7 @@ carte_masque = pygame.transform.scale(carte_masque, (carte_masque.get_width() * 
 
 carte_masque_mask = pygame.mask.from_surface(carte_masque)
 
+personnage_mask = pygame.mask.from_surface(c.personnage_dos)
 
 dos_animation = [c.personnage_dos, c.personnage_dos_marche1, c.personnage_dos_marche2]
 face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_face_marche2]
@@ -41,11 +44,22 @@ ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # R
 # Création de l'image du bouton shop lorsqu'il est survolé
 bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
 
+# Création de l'image du bouton level
+bouton_level = pygame.image.load("assets/images/bouton_level.png").convert_alpha()
+bouton_level = pygame.transform.scale(bouton_level, (bouton_level.get_width() * 3, bouton_level.get_height() * 3))
+
 rect_personnage = c.personnage_dos.get_rect(center=(c.pos_personnage))
 rect_personnage[1] += 50
 rect_personnage[3] = 30
 
+chat_background = pygame.image.load("assets/images/chat_background.png").convert_alpha()
+chat_background = pygame.transform.scale(chat_background, (chat_background.get_width() * 1.75, chat_background.get_height() * 1.75))
+rect_chat_background = chat_background.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - 100))
+
 touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False}
+
+# transition = Video("assets/video/transition1.mov", use_pygame_audio=True, chunk_size=0)
+
 
 
 def principal():
@@ -125,6 +139,7 @@ def principal():
                     import menu_echap
                     menu_echap.principal()
 
+
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
                     touches_pressee["gauche"] = True
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -150,15 +165,15 @@ def principal():
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
+        rect_bouton_level = bouton_level.get_rect(center=(offset_carte[0] + 850, offset_carte[1] - 150))
 
+        fenetre.blit(bouton_level, rect_bouton_level)
 
         fenetre.blit(ombre,
                      ombre.get_rect(
                          center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height() + 5) // 2)))
 
 
-        fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
-        fenetre.blit(bouton_shop, rect_bouton_shop)
 
 
 
@@ -171,16 +186,17 @@ def principal():
         fenetre.blit(c.caisse, rect_caisse2)
         fenetre.blit(c.palmier, rect_palmier)
         fenetre.blit(c.arbre, pos_arbre)
-        fenetre.blit(c.bateau, c.bateau.get_rect(center=(offset_carte[0] - 1500, offset_carte[1] + 1300)))
 
         if not c.pause and not c.est_menu:
 
             # Affichage du bouton shop
             if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
+
                 fenetre.blit(bouton_shop_hover, rect_bouton_shop.move(-1,
                                                                       -1))  # Affiche la version agrandie du bouton shop, décalée de 1 pixel vers la gauche et vers le haut pour centrer l'agrandissement
             else:
                 fenetre.blit(bouton_shop, rect_bouton_shop)
+                fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
 
             if touches_pressee["gauche"]:
 
@@ -257,6 +273,17 @@ def principal():
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
                         offset_carte[1] += 7
+
+            # Si le personnage est sur le bouton du 1er niveau
+
+            if rect_bouton_level.colliderect(rect_personnage):
+
+                fenetre.blit(chat_background, rect_chat_background) # Afficher la bulle de texte
+
+                if pygame.key.get_pressed()[pygame.K_SPACE]:
+                    import level1
+                    level1.principal() # Lancer le niveau 1
+
             if carte.get_rect(center=(offset_carte))[0] >= 0 :
                 offset_carte[0] -= 7 #gauche
 
@@ -268,7 +295,6 @@ def principal():
 
             if carte.get_rect(center=(offset_carte))[0] <= -4960 :
                 offset_carte[0] += 7 #droite
-
 
         # Objets dessus le personnage
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
