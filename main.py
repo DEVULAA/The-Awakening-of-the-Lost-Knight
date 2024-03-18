@@ -18,9 +18,11 @@ logo = pygame.transform.scale(icone, (icone.get_width() * 6, icone.get_height() 
 c.game_state = "menu"
 
 # chargement de la musique
-pygame.mixer.init()
-pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
-pygame.mixer.music.play(-1)
+
+if c.musique :
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
+    pygame.mixer.music.play(-1)
 
 # Créer une boucle principale
 while c.running:

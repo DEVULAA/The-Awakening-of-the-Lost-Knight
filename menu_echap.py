@@ -1,8 +1,8 @@
 # Importer le module pygame
 import pygame
 import constantes as c
-
-
+import lobby
+import level1
 
 
 # Initialiser pygame
@@ -16,11 +16,26 @@ buffer_surface = pygame.Surface(fenetre.get_size(), pygame.SRCALPHA)
 
 def principal():
 
+    if c.musique:
+        pygame.mixer.pause()
+
+    lobby.touches_pressee["gauche"] = False
+    lobby.touches_pressee["droite"] = False
+    lobby.touches_pressee["haut"] = False
+    lobby.touches_pressee["bas"] = False
+
+    level1.touches_pressee["gauche"] = False
+    level1.touches_pressee["droite"] = False
+
     c.pause = True
     fenetre.blit(c.image_pause, (0, 0))
     arriere_plan = pygame.Surface((c.LARGEUR, c.HAUTEUR), pygame.SRCALPHA)
     arriere_plan = arriere_plan.convert_alpha()
     arriere_plan.fill((128, 128, 128, 128))
+
+
+
+
 
 
     fenetre.blit(arriere_plan, (0, 0))
@@ -54,8 +69,9 @@ def principal():
                     pygame.mixer.music.fadeout(500)
                     pygame.quit()
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_ESCAPE:
+                    pygame.mixer.unpause()
                     c.pause = False
 
 

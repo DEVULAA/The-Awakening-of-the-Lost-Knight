@@ -1,6 +1,6 @@
 import pygame
 
-FPS = 120
+FPS = 60
 
 # couleurs
 BLANC = (255, 255, 255)
@@ -102,6 +102,8 @@ bateau = pygame.transform.scale(bateau, (bateau.get_width() * 5.5, bateau.get_he
 
 pause = False
 est_menu = False
+
+musique = True
 
 #running
 running = True

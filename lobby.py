@@ -64,9 +64,10 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False
 
 def principal():
 
-    pygame.mixer.music.unload()
-    pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
-    pygame.mixer.music.play()
+    if c.musique:
+        pygame.mixer.music.unload()
+        pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
+        pygame.mixer.music.play()
 
     pygame.mixer.music.set_volume(c.volume / 100)
 
@@ -110,16 +111,17 @@ def principal():
 
     while c.running:
 
-
-        if not pygame.mixer.music.get_busy():
-            pygame.mixer.music.unload()
-            pygame.mixer.music.load("assets/sons/musique/lobby.wav")
-            pygame.mixer.music.play(-1)
+        if c.musique:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.unload()
+                pygame.mixer.music.load("assets/sons/musique/lobby.wav")
+                pygame.mixer.music.play(-1)
 
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
-                pygame.mixer.music.fadeout(500)
+                if c.musique:
+                    pygame.mixer.music.fadeout(500)
                 c.running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -128,16 +130,10 @@ def principal():
                 # Si le bouton jouer est cliqué, changer l'état du jeu
                 if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
 
-
                         import magasin
                         magasin.principal()  # Exécute la fonction principal() du module magasin
 
             if event.type == pygame.KEYDOWN:
-
-                if event.key == pygame.K_ESCAPE:
-                    c.image_pause = fenetre.copy()
-                    import menu_echap
-                    menu_echap.principal()
 
 
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
@@ -158,6 +154,14 @@ def principal():
                     touches_pressee["haut"] = False
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     touches_pressee["bas"] = False
+
+            if event.type == pygame.KEYUP:
+
+                if event.key == pygame.K_ESCAPE:
+                    c.image_pause = fenetre.copy()
+                    import menu_echap
+                    menu_echap.principal()
+
 
             if event.type == pygame.USEREVENT:
                 eau_index = (eau_index + 1) % eau_nb_images
@@ -200,7 +204,7 @@ def principal():
 
             if touches_pressee["gauche"]:
 
-                offset_carte[0] += 7
+                offset_carte[0] += 10
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
@@ -211,7 +215,7 @@ def principal():
 
             elif touches_pressee["droite"]:
 
-                offset_carte[0] -= 7
+                offset_carte[0] -= 10
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
@@ -222,7 +226,7 @@ def principal():
 
             elif touches_pressee["haut"]:
 
-                offset_carte[1] += 7
+                offset_carte[1] += 10
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
@@ -232,7 +236,7 @@ def principal():
                 derniere_direction = "haut"
 
             elif touches_pressee["bas"]:
-                offset_carte[1] -= 7
+                offset_carte[1] -= 10
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_face = (current_frame_face + 1) % len(face_animation)
