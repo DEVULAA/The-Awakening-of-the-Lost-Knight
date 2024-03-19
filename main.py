@@ -29,6 +29,9 @@ while c.running:
 
     pygame.mixer.music.set_volume(c.volume / 100)
 
+    if c.musique == False:
+        pygame.mixer.music.pause()
+
     # Si l'état du jeu est le menu de départ, afficher les boutons principaux
     if c.game_state == "menu":
 

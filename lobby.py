@@ -60,14 +60,12 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False
 
 # transition = Video("assets/video/transition1.mov", use_pygame_audio=True, chunk_size=0)
 
-
+if c.musique:
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
+    pygame.mixer.music.play()
 
 def principal():
-
-    if c.musique:
-        pygame.mixer.music.unload()
-        pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
-        pygame.mixer.music.play()
 
     pygame.mixer.music.set_volume(c.volume / 100)
 
@@ -110,6 +108,9 @@ def principal():
         objets = [rect_chateau_sable, rect_palmier, rect_caisse1, rect_caisse2, rect_arbre]  # liste des collisions
 
     while c.running:
+
+        if c.musique == False:
+            pygame.mixer.music.pause()
 
         if c.musique:
             if not pygame.mixer.music.get_busy():

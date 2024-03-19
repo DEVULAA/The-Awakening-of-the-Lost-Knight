@@ -40,6 +40,8 @@ def principal():
         fenetre.blit(arriere_plan, (0, 0))
         fenetre.blit(sol, sol_rect)
 
+        if c.musique == False:
+            pygame.mixer.music.pause()
 
         for event in pygame.event.get():
 

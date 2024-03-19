@@ -34,10 +34,6 @@ def principal():
     arriere_plan.fill((128, 128, 128, 128))
 
 
-
-
-
-
     fenetre.blit(arriere_plan, (0, 0))
 
     while c.pause:
@@ -47,6 +43,18 @@ def principal():
         texte_rect = texte_gros.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - (c.HAUTEUR - 40)))
 
         fenetre.blit(texte_gros, texte_rect)
+
+        if c.musique:
+            bouton_mute = pygame.image.load("assets/images/mute.png").convert_alpha()
+
+        else:
+            bouton_mute = pygame.image.load("assets/images/unmute.png").convert_alpha()
+
+        bouton_mute = pygame.transform.scale(bouton_mute, (bouton_mute.get_width() * 3, bouton_mute.get_height() * 3))
+        rect_bouton_mute = bouton_mute.get_rect(topright=(c.LARGEUR - 8, 8))
+
+        fenetre.blit(bouton_mute, rect_bouton_mute)
+
 
         bouton_continuer = c.creer_bouton(c.bouton_background, 'Continuer', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 400)
         bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 20, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 500)
@@ -64,6 +72,10 @@ def principal():
                 # Si le bouton jouer est cliqué, changer l'état du jeu
                 if bouton_continuer.collidepoint(mouse_x, mouse_y):
                     c.pause = False
+
+                if rect_bouton_mute.collidepoint(mouse_x, mouse_y):
+
+                    c.musique = not c.musique
 
                 if bouton_quitter.collidepoint(mouse_x, mouse_y):
                     pygame.mixer.music.fadeout(500)
