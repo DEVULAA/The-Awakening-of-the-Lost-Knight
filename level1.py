@@ -34,14 +34,30 @@ for i in range(8):  # Il y a 8 sprites dans l'animation de marche
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
     animation_marche.append(sprite.convert_alpha())
 
+animation_saut = []
+for i in range(8):  # Il y a 8 sprites dans l'animation de marche
+    sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
+    sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*3, sprite_width, sprite_height))
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
+    animation_marche.append(sprite.convert_alpha())
+
+animation_retombee = []
+for i in range(8):  # Il y a 8 sprites dans l'animation de marche
+    sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
+    sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*4, sprite_width, sprite_height))
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
+    animation_marche.append(sprite.convert_alpha())
+
 # Initialiser l'index de l'animation d'attente
 waiting_index = 0
 index_marche = 0
+index_saut = 0
+index_retombee = 0
 
 touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
 def principal():
-    global waiting_index, index_marche  # Utiliser la variable globale waiting_index
+    global waiting_index, index_marche, index_saut  # Utiliser la variable globale waiting_index
 
     pos_perso_x = 43
     pos_perso_y = 415
@@ -126,11 +142,19 @@ def principal():
                 fenetre.blit(pygame.transform.flip(waiting_animation[waiting_index], True, False), perso_rect)
 
         if en_saut:
+
             pos_perso_y -= conteur_saut
             if conteur_saut > -max_saut:
                 conteur_saut -= 1
             else:
                 en_saut = False
+
+        if en_saut:
+
+            # Afficher le sprite de l'animation de saut
+            perso_rect = animation_saut[index_saut].get_rect(topleft=(pos_perso_x, pos_perso_y))
+            fenetre.blit(animation_saut[index_saut], perso_rect)
+            index_saut = (index_saut + 1) % len(animation_saut)  # Mettre à jour l'index de l'animation de saut
 
 
         if int(conteur_attente) == 10:

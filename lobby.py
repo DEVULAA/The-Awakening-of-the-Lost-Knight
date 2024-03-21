@@ -30,17 +30,17 @@ eau_animation = [c.eau_1, c.eau_2, c.eau_3, c.eau_4]
 
 ombre = pygame.image.load("assets/images/personnage/shadow.png")
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
+#
+# bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
+# bouton_shop = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() * 3, bouton_shop.get_height() * 3))
+# rect_bouton_shop = bouton_shop.get_rect(topright=(c.LARGEUR - 8, 8))
 
-bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
-bouton_shop = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() * 3, bouton_shop.get_height() * 3))
-rect_bouton_shop = bouton_shop.get_rect(topright=(c.LARGEUR - 8, 8))
+# # Création de l'ombre
+# ombre_bouton_shop = bouton_shop.copy()  # Crée une copie de l'image du bouton shop
+# ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # Remplit l'image avec la couleur de l'ombre  # Applique une ombre semi-transparente
 
-# Création de l'ombre
-ombre_bouton_shop = bouton_shop.copy()  # Crée une copie de l'image du bouton shop
-ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # Remplit l'image avec la couleur de l'ombre  # Applique une ombre semi-transparente
-
-# Création de l'image du bouton shop lorsqu'il est survolé
-bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
+# # Création de l'image du bouton shop lorsqu'il est survolé
+# bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
 
 # Création de l'image du bouton level
 bouton_level = pygame.image.load("assets/images/bouton_level.png").convert_alpha()
@@ -192,7 +192,7 @@ def principal():
 
         if not c.pause and not c.est_menu:
 
-            # # Affichage du bouton shop
+            # Affichage du bouton shop
             # if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
             #
             #     fenetre.blit(bouton_shop_hover, rect_bouton_shop.move(-1,
@@ -266,16 +266,16 @@ def principal():
                     # Collision détectée, annule le déplacement dans la direction correspondante
                     if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(
                             rect_personnage, objet) == "gauche":
-                        offset_carte[0] -= 7
+                        offset_carte[0] -= 10
                     elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(
                             rect_personnage, objet) == "droite":
-                        offset_carte[0] += 7
+                        offset_carte[0] += 10
                     elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage,
                                                                                                        objet) == "bas":
-                        offset_carte[1] -= 7
+                        offset_carte[1] -= 10
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
-                        offset_carte[1] += 7
+                        offset_carte[1] += 10
 
             # Si le personnage est sur le bouton du 1er niveau
 
@@ -288,16 +288,16 @@ def principal():
                     level1.principal() # Lancer le niveau 1
 
             if carte.get_rect(center=(offset_carte))[0] >= 0 :
-                offset_carte[0] -= 7 #gauche
+                offset_carte[0] -= 10 #gauche
 
             if carte.get_rect(center=(offset_carte))[1] >= 0 :
-                offset_carte[1] -= 7 #haut
+                offset_carte[1] -= 10 #haut
 
             if carte.get_rect(center=(offset_carte))[1] <= -2640 :
-                offset_carte[1] += 7 #bas
+                offset_carte[1] += 10 #bas
 
             if carte.get_rect(center=(offset_carte))[0] <= -4960 :
-                offset_carte[0] += 7 #droite
+                offset_carte[0] += 10 #droite
 
         # Objets dessus le personnage
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
