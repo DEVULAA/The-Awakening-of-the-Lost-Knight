@@ -1,7 +1,5 @@
 import pygame
 import constantes as c
-import pygame.gfxdraw
-import pgeng
 from pyvidplayer2 import Video
 
 
@@ -129,10 +127,10 @@ def principal():
                 # Obtenir la position de la souris
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 # Si le bouton jouer est cliqué, changer l'état du jeu
-                if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
-
-                        import magasin
-                        magasin.principal()  # Exécute la fonction principal() du module magasin
+                # if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
+                #
+                #         import magasin
+                #         magasin.principal()  # Exécute la fonction principal() du module magasin
 
             if event.type == pygame.KEYDOWN:
 
@@ -194,14 +192,14 @@ def principal():
 
         if not c.pause and not c.est_menu:
 
-            # Affichage du bouton shop
-            if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
-
-                fenetre.blit(bouton_shop_hover, rect_bouton_shop.move(-1,
-                                                                      -1))  # Affiche la version agrandie du bouton shop, décalée de 1 pixel vers la gauche et vers le haut pour centrer l'agrandissement
-            else:
-                fenetre.blit(bouton_shop, rect_bouton_shop)
-                fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
+            # # Affichage du bouton shop
+            # if rect_bouton_shop.collidepoint(pygame.mouse.get_pos()):  # Si la souris est sur le bouton shop
+            #
+            #     fenetre.blit(bouton_shop_hover, rect_bouton_shop.move(-1,
+            #                                                           -1))  # Affiche la version agrandie du bouton shop, décalée de 1 pixel vers la gauche et vers le haut pour centrer l'agrandissement
+            # else:
+            #     fenetre.blit(bouton_shop, rect_bouton_shop)
+            #     fenetre.blit(ombre_bouton_shop, (rect_bouton_shop.x + 3, rect_bouton_shop.y + 3))
 
             if touches_pressee["gauche"]:
 
