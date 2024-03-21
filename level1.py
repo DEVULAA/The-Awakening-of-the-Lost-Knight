@@ -24,43 +24,28 @@ waiting_animation = []
 for i in range(6):  # Il y a 6 sprites dans l'animation d'attente
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
     sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, 0, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))  # Ajuster la taille du sprite
     waiting_animation.append(sprite.convert_alpha())
 
 animation_marche = []
 for i in range(8):  # Il y a 8 sprites dans l'animation de marche
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
     sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*2, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))  # Ajuster la taille du sprite
     animation_marche.append(sprite.convert_alpha())
 
-animation_saut = []
-for i in range(8):  # Il y a 8 sprites dans l'animation de marche
-    sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
-    sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*3, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
-    animation_marche.append(sprite.convert_alpha())
-
-animation_retombee = []
-for i in range(8):  # Il y a 8 sprites dans l'animation de marche
-    sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
-    sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*4, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2.5, sprite.get_height() * 2.5))  # Ajuster la taille du sprite
-    animation_marche.append(sprite.convert_alpha())
 
 # Initialiser l'index de l'animation d'attente
 waiting_index = 0
 index_marche = 0
-index_saut = 0
-index_retombee = 0
 
 touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
 def principal():
-    global waiting_index, index_marche, index_saut  # Utiliser la variable globale waiting_index
+    global waiting_index, index_marche  # Utiliser la variable globale waiting_index
 
     pos_perso_x = 43
-    pos_perso_y = 415
+    pos_perso_y = 385
 
     conteur_attente = 0
     conteur_marche = 0
@@ -111,7 +96,7 @@ def principal():
                     menu_echap.principal()
 
         bordures_verif_droite = pos_perso_x >= 0
-        bordures_verif_gauche = pos_perso_x <= 690
+        bordures_verif_gauche = pos_perso_x <= 632
 
         if touches_pressee["gauche"] and bordures_verif_droite and not touches_pressee["droite"]:
 
@@ -149,14 +134,6 @@ def principal():
             else:
                 en_saut = False
 
-        if en_saut:
-
-            # Afficher le sprite de l'animation de saut
-            perso_rect = animation_saut[index_saut].get_rect(topleft=(pos_perso_x, pos_perso_y))
-            fenetre.blit(animation_saut[index_saut], perso_rect)
-            index_saut = (index_saut + 1) % len(animation_saut)  # Mettre à jour l'index de l'animation de saut
-
-
         if int(conteur_attente) == 10:
             # Mettre à jour l'index de l'animation d'attente
             waiting_index = (waiting_index + 1) % len(waiting_animation)
@@ -172,5 +149,3 @@ def principal():
 
 
         pygame.display.flip()
-
-principal()
