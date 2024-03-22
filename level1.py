@@ -326,5 +326,3 @@ def principal():
                 fenetre.blit(boss_animation_mort[6], boss_rect)
 
         pygame.display.flip()
-
-principal()
