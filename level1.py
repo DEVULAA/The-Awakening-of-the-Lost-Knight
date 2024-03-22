@@ -70,6 +70,14 @@ def principal():
         if c.musique == False:
             pygame.mixer.music.pause()
 
+
+        if c.musique:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.unload()
+                pygame.mixer.music.load("assets/sons/musique/levels.wav")
+                pygame.mixer.music.play(-1)
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 c.running = False
