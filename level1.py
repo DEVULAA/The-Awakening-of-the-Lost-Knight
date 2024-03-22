@@ -4,60 +4,81 @@ import constantes as c
 # initialiser pygame
 pygame.init()
 
-# Créer la fenêtre du jeu
+# créer la fenêtre
 fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
+# chargement de l'arrière plan
 arriere_plan = pygame.image.load("assets/images/level1/background.png")
 
+# chargement du sol
 sol = pygame.image.load("assets/images/level1/background_sol.png")
 sol_rect = sol.get_rect(topleft=(0, 552))
 
-# Charger la sprite sheet
+# chargement de la feuille des sprites du joueur
 sprite_sheet = pygame.image.load("assets/images/personnage/level/char_sheet.png").convert_alpha()
 
-# Définir les dimensions de chaque sprite dans la sprite sheet
+# dimensions de chaque case de la feuille des sprites
 sprite_width = 56
 sprite_height = 56
 
-# Créer une liste pour stocker chaque sprite de l'animation d'attente
+# animation attente
 waiting_animation = []
-for i in range(6):  # Il y a 6 sprites dans l'animation d'attente
+for i in range(6):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
     sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, 0, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))  # Ajuster la taille du sprite
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     waiting_animation.append(sprite.convert_alpha())
 
+# animation marche
 animation_marche = []
-for i in range(8):  # Il y a 8 sprites dans l'animation de marche
+for i in range(8):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
     sprite.blit(sprite_sheet, (0, 0), (i*sprite_width, sprite_height*2, sprite_width, sprite_height))
-    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))  # Ajuster la taille du sprite
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     animation_marche.append(sprite.convert_alpha())
 
+# animation attaque
+animation_attaque = []
+for i in range(8):
+    sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
+    sprite.blit(sprite_sheet, (0, 0), (i * sprite_width, sprite_height * 1, sprite_width, sprite_height))
+    sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
+    animation_attaque.append(sprite.convert_alpha())
 
-# Initialiser l'index de l'animation d'attente
+# image de saut
+sprite_saut = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
+sprite_saut.blit(sprite_sheet, (0, 0), (sprite_width*7, sprite_height*3, sprite_width, sprite_height))
+sprite_saut = pygame.transform.scale(sprite_saut, (sprite_saut.get_width() * 3, sprite_saut.get_height() * 3))  # Ajuster la taille du sprite
+
+
+# initialisation d'index pour les animations
 waiting_index = 0
 index_marche = 0
+index_attaque = 0
 
+# dictionnaire des touches pressées
 touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
+
 def principal():
-    global waiting_index, index_marche  # Utiliser la variable globale waiting_index
+    global waiting_index, index_marche, index_attaque
 
     pos_perso_x = 43
     pos_perso_y = 385
 
+    vie_perso = 100 # initialise la vie du joueur à 100 HP
+
     conteur_attente = 0
     conteur_marche = 0
+    compteur_attaque = 0
 
     conteur_saut = 0
     max_saut = 17
 
-
     derniere_direction = "droite"
 
-
     en_saut = False
+    attaque = False
 
     fenetre.fill(c.BLANC)
 
@@ -90,6 +111,8 @@ def principal():
                 if (event.key == pygame.K_UP or event.key == pygame.K_SPACE) and not en_saut:
                     en_saut = True
                     conteur_saut = max_saut
+                if event.key == pygame.K_f and not attaque:
+                    attaque = True
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
@@ -110,29 +133,48 @@ def principal():
 
             pos_perso_x = pos_perso_x - 4
             derniere_direction = "gauche"
-            # Afficher le sprite de l'animation de marche inversée
-            perso_rect = pygame.transform.flip(animation_marche[index_marche], True, False).get_rect(topleft=(pos_perso_x, pos_perso_y))
-            fenetre.blit(pygame.transform.flip(animation_marche[index_marche], True, False), perso_rect)
+
+            if not en_saut and not attaque:
+                # Afficher le sprite de l'animation de marche inversée
+                perso_rect = pygame.transform.flip(animation_marche[index_marche], True, False).get_rect(topleft=(pos_perso_x, pos_perso_y))
+                fenetre.blit(pygame.transform.flip(animation_marche[index_marche], True, False), perso_rect)
 
         elif touches_pressee["droite"] and bordures_verif_gauche and not touches_pressee["gauche"]:
 
             pos_perso_x = pos_perso_x + 4
             derniere_direction = "droite"
-            # Afficher le sprite de l'animation de marche
-            perso_rect = animation_marche[index_marche].get_rect(topleft=(pos_perso_x, pos_perso_y))
-            fenetre.blit(animation_marche[index_marche], perso_rect)
+
+            if not en_saut and not attaque:
+
+                # Afficher le sprite de l'animation de marche
+                perso_rect = animation_marche[index_marche].get_rect(topleft=(pos_perso_x, pos_perso_y))
+                fenetre.blit(animation_marche[index_marche], perso_rect)
 
         else:
 
             if derniere_direction == "droite":
-
-                # Afficher le sprite de l'animation d'attente
-                perso_rect = waiting_animation[waiting_index].get_rect(topleft=(pos_perso_x, pos_perso_y))
-                fenetre.blit(waiting_animation[waiting_index], perso_rect)
+                if not en_saut and not attaque:
+                    # Afficher le sprite de l'animation d'attente
+                    perso_rect = waiting_animation[waiting_index].get_rect(topleft=(pos_perso_x, pos_perso_y))
+                    fenetre.blit(waiting_animation[waiting_index], perso_rect)
             else:
-                perso_rect = pygame.transform.flip(waiting_animation[waiting_index], True, False).get_rect(
-                    topleft=(pos_perso_x, pos_perso_y))
-                fenetre.blit(pygame.transform.flip(waiting_animation[waiting_index], True, False), perso_rect)
+                if not en_saut and not attaque:
+                    perso_rect = pygame.transform.flip(waiting_animation[waiting_index], True, False).get_rect(
+                        topleft=(pos_perso_x, pos_perso_y))
+                    fenetre.blit(pygame.transform.flip(waiting_animation[waiting_index], True, False), perso_rect)
+
+
+        if attaque:
+
+            if not en_saut:
+                if derniere_direction == "droite":
+                    perso_rect = animation_attaque[index_attaque].get_rect(topleft=(pos_perso_x, pos_perso_y))
+                    fenetre.blit(animation_attaque[index_attaque], perso_rect)
+                else:
+                    perso_rect = pygame.transform.flip(animation_attaque[index_attaque], True, False).get_rect(
+                        topleft=(pos_perso_x, pos_perso_y))
+                    fenetre.blit(pygame.transform.flip(animation_attaque[index_attaque], True, False), perso_rect)
+
 
         if en_saut:
 
@@ -141,6 +183,14 @@ def principal():
                 conteur_saut -= 1
             else:
                 en_saut = False
+
+            if derniere_direction == "droite":
+                # Afficher l'image de saut
+                perso_rect = sprite_saut.get_rect(topleft=(pos_perso_x, pos_perso_y))
+                fenetre.blit(sprite_saut, perso_rect)
+            else:
+                perso_rect = pygame.transform.flip(sprite_saut, True, False).get_rect(topleft=(pos_perso_x, pos_perso_y))
+                fenetre.blit(pygame.transform.flip(sprite_saut, True, False), perso_rect)
 
         if int(conteur_attente) == 10:
             # Mettre à jour l'index de l'animation d'attente
@@ -152,8 +202,25 @@ def principal():
             index_marche = (index_marche + 1) % len(animation_marche)
             conteur_marche = 0
 
+
+        if int(compteur_attaque) == 5:
+            # Mettre à jour l'index de l'animation d'attaque
+            index_attaque = (index_attaque + 1) % len(animation_attaque)
+            compteur_attaque = 0
+
+            # Vérifier si l'animation d'attaque est terminée
+            if index_attaque == 0:
+                attaque = False
+
+        print(compteur_attaque)
+
+
         conteur_attente += 1
         conteur_marche += 1
 
+        if attaque:
+            compteur_attaque += 1
 
         pygame.display.flip()
+
+principal()

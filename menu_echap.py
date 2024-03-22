@@ -15,8 +15,9 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 buffer_surface = pygame.Surface(fenetre.get_size(), pygame.SRCALPHA)
 
 def principal():
+
     if c.musique:
-        pygame.mixer.pause()
+        pygame.mixer.music.pause()
 
     lobby.touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False}
     level1.touches_pressee = {"gauche": False, "droite": False}
@@ -69,7 +70,8 @@ def principal():
                     pygame.quit()
 
             if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-                pygame.mixer.unpause()
+                if c.musique:
+                    pygame.mixer.music.unpause()
                 c.pause = False
 
         pygame.display.update()
