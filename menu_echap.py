@@ -35,7 +35,7 @@ def principal():
         texte_rect = texte_gros.get_rect(center=(c.LARGEUR / 2, c.HAUTEUR - (c.HAUTEUR - 40)))
         fenetre.blit(texte_gros, texte_rect)
 
-        bouton_mute_image = "assets/images/mute.png" if c.musique else "assets/images/unmute.png"
+        bouton_mute_image = "assets/images/unmute.png" if c.musique else "assets/images/mute.png"
         bouton_mute = pygame.image.load(bouton_mute_image)
         bouton_mute = pygame.transform.scale(bouton_mute.convert_alpha(), (bouton_mute.get_width() * 3, bouton_mute.get_height() * 3))
         rect_bouton_mute = bouton_mute.get_rect(topright=(c.LARGEUR - 8, 8))
@@ -54,15 +54,12 @@ def principal():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
 
                 if bouton_continuer.collidepoint(mouse_x, mouse_y):
+
+                    if c.musique:
+                        pygame.mixer.music.unpause()
                     c.pause = False
 
                 if rect_bouton_mute.collidepoint(mouse_x, mouse_y):
-
-                    if c.musique:
-                        pygame.mixer.music.pause()
-
-                    else:
-                        pygame.mixer.music.unpause()
                     c.musique = not c.musique
 
                 if bouton_quitter.collidepoint(mouse_x, mouse_y):
