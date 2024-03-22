@@ -44,17 +44,26 @@ def principal():
         bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 20, c.BLANC, 250, 50, (c.LARGEUR//2) - 250//2, 500)
 
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 pygame.mixer.music.fadeout(500)
                 pygame.quit()
-                quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
+
                 if bouton_continuer.collidepoint(mouse_x, mouse_y):
                     c.pause = False
+
                 if rect_bouton_mute.collidepoint(mouse_x, mouse_y):
+
+                    if c.musique:
+                        pygame.mixer.music.pause()
+
+                    else:
+                        pygame.mixer.music.unpause()
                     c.musique = not c.musique
+
                 if bouton_quitter.collidepoint(mouse_x, mouse_y):
                     pygame.mixer.music.fadeout(500)
                     pygame.quit()

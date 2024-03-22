@@ -108,6 +108,7 @@ def principal():
     while c.running:
 
         if c.musique == False:
+
             pygame.mixer.music.pause()
 
         if c.musique:
@@ -119,9 +120,12 @@ def principal():
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
+
                 if c.musique:
                     pygame.mixer.music.fadeout(500)
+
                 c.running = False
+                pygame.quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Obtenir la position de la souris
@@ -284,6 +288,8 @@ def principal():
                 fenetre.blit(chat_background, rect_chat_background) # Afficher la bulle de texte
 
                 if pygame.key.get_pressed()[pygame.K_SPACE]:
+
+                    pygame.mixer.music.fadeout(500)
                     import level1
                     level1.principal() # Lancer le niveau 1
 
