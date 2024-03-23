@@ -97,6 +97,7 @@ index_boss_attente = 0
 index_boss_degats = 0
 index_boss_mort = 0
 
+
 # dictionnaire des touches pressées
 touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
@@ -122,6 +123,8 @@ def principal():
     compteur_degats_boss = 0
     compteur_boss_mort = 0
 
+    animation_temps_debut = 0
+
     conteur_saut = 0
     max_saut = 17
 
@@ -132,6 +135,13 @@ def principal():
 
     boss_est_attaque = False
 
+
+    barre_boss = pygame.image.load("assets/images/boss/level/barre_de_vie.png").convert_alpha()
+    rect_barre_boss = barre_boss.get_rect(topleft=(425, 35))
+
+    barre_joueur = pygame.image.load("assets/images/personnage/level/barre_de_vie.png").convert_alpha()
+    rect_barre_joueur = barre_joueur.get_rect(topleft=(90, 35))
+
     fini = False
 
     fenetre.fill(c.BLANC)
@@ -141,6 +151,18 @@ def principal():
 
         fenetre.blit(arriere_plan, (0, 0))
         fenetre.blit(sol, sol_rect)
+
+        couleur_barre_boss = (70, 199, 58)
+        interieur_barre_boss = pygame.Rect(427, 39, int(vie_boss / 1.9), 7)
+
+        couleur_barre_joueur = (204, 33, 0)
+        interieur_barre_joueur = pygame.Rect(109, 39, int(vie_perso * 2.64), 7)
+
+        pygame.draw.rect(fenetre, couleur_barre_boss, interieur_barre_boss)
+        fenetre.blit(barre_boss, rect_barre_boss)
+
+        pygame.draw.rect(fenetre, couleur_barre_joueur, interieur_barre_joueur)
+        fenetre.blit(barre_joueur, rect_barre_joueur)
 
         if c.musique == False:
             pygame.mixer.music.pause()
@@ -169,11 +191,16 @@ def principal():
 
                 if event.key == pygame.K_f and not attaque:
                     attaque = True
+
                     if perso_rect.colliderect(boss_rect):
 
                         index_boss_degats = 0
                         vie_boss -= 10
                         boss_est_attaque = True
+                        animation_temps_debut = pygame.time.get_ticks()
+
+                if event.key == pygame.K_k and not attaque:
+                    vie_perso -= 10
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
@@ -253,7 +280,7 @@ def principal():
                 perso_rect = pygame.transform.flip(sprite_saut, True, False).get_rect(topleft=(pos_perso_x, pos_perso_y))
                 fenetre.blit(pygame.transform.flip(sprite_saut, True, False), perso_rect)
 
-        if int(conteur_attente) == 10:
+        if int(conteur_attente) == 7:
             # Mettre à jour l'index de l'animation d'attente
             waiting_index = (waiting_index + 1) % len(waiting_animation)
             conteur_attente = 0
@@ -279,11 +306,6 @@ def principal():
         if attaque:
             compteur_attaque += 1
 
-        # gestion boss
-        if not boss_est_attaque and vie_boss > 0:
-
-            boss_rect = boss_animation_attente[index_boss_attente].get_rect(topleft=(pos_boss_x, pos_boss_y))
-            fenetre.blit(boss_animation_attente[index_boss_attente], boss_rect)
 
         if int(compteur_attente_boss) == 5:
             index_boss_attente = (index_boss_attente + 1) % len(boss_animation_attente)
@@ -291,8 +313,7 @@ def principal():
 
         compteur_attente_boss += 1
 
-        if boss_est_attaque and not fini:
-
+        if boss_est_attaque and not fini and animation_temps_debut > 0 and pygame.time.get_ticks() - animation_temps_debut >= 300:
 
             boss_rect = boss_animation_degats[index_boss_degats].get_rect(topleft=(pos_boss_x, pos_boss_y))
             fenetre.blit(boss_animation_degats[index_boss_degats], boss_rect)
@@ -307,6 +328,9 @@ def principal():
 
             compteur_degats_boss += 1
 
+        elif vie_boss > 0:
+            boss_rect = boss_animation_attente[index_boss_attente].get_rect(topleft=(pos_boss_x, pos_boss_y))
+            fenetre.blit(boss_animation_attente[index_boss_attente], boss_rect)
 
         if vie_boss == 0:
 
@@ -326,3 +350,4 @@ def principal():
                 fenetre.blit(boss_animation_mort[6], boss_rect)
 
         pygame.display.flip()
+principal()

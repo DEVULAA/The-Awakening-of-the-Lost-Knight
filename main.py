@@ -19,15 +19,19 @@ c.game_state = "menu"
 
 # chargement de la musique
 
-if c.musique :
-    pygame.mixer.init()
-    pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
-    pygame.mixer.music.play(-1)
+
 
 # Créer une boucle principale
 while c.running:
 
     pygame.mixer.music.set_volume(c.volume / 100)
+
+    if c.musique:
+
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
+            pygame.mixer.music.play(-1)
 
     if c.musique == False:
         pygame.mixer.music.pause()

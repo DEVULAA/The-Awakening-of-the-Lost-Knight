@@ -105,6 +105,8 @@ est_menu = False
 
 musique = True
 
+venu_de = ""
+
 #running
 running = True
 

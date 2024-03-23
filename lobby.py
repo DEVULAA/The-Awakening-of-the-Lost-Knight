@@ -44,7 +44,7 @@ ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height
 
 # Création de l'image du bouton level
 bouton_level = pygame.image.load("assets/images/bouton_level.png").convert_alpha()
-bouton_level = pygame.transform.scale(bouton_level, (bouton_level.get_width() * 3, bouton_level.get_height() * 3))
+bouton_level = pygame.transform.scale(bouton_level, (bouton_level.get_width() * 4, bouton_level.get_height() * 4))
 
 rect_personnage = c.personnage_dos.get_rect(center=(c.pos_personnage))
 rect_personnage[1] += 50
@@ -172,7 +172,7 @@ def principal():
         fenetre.blit(eau_animation[eau_index], c.eau_1.get_rect(center=(offset_carte)))
         fenetre.blit(carte, carte.get_rect(center=(offset_carte))) #Affichage de la carte
 
-        rect_bouton_level = bouton_level.get_rect(center=(offset_carte[0] + 850, offset_carte[1] - 150))
+        rect_bouton_level = bouton_level.get_rect(center=(offset_carte[0] + 850, offset_carte[1] + 2))
 
         fenetre.blit(bouton_level, rect_bouton_level)
 
