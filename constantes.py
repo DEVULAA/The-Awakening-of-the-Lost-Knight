@@ -1,6 +1,6 @@
 import pygame
 
-FPS = 60
+FPS = 120
 
 # couleurs
 BLANC = (255, 255, 255)
