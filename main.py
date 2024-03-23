@@ -17,10 +17,6 @@ logo = pygame.transform.scale(icone, (icone.get_width() * 6, icone.get_height() 
 # Définir l'état du jeu
 c.game_state = "menu"
 
-# chargement de la musique
-
-
-
 # Créer une boucle principale
 while c.running:
 
@@ -44,12 +40,13 @@ while c.running:
 
         fenetre.blit(logo, logo.get_rect(center=(c.LARGEUR//2, 140)))
 
-        # Afficher les trois boutons principaux
+        # Afficher les trois boutons principaux du menu
         bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 273)
         bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 353)
         bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 433)
 
     if c.game_state == "menu":
+
         # Gérer les événements (si cliqué ou autre)
         for event in pygame.event.get():
 
