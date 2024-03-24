@@ -10,10 +10,10 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 def principal():
 
-    fenetre.fill(c.BLANC)
+    fenetre.blit(c.fond, (0, 0))
     font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", 25)
     texte_gros = font.render("Paramètres", True, c.NOIR)
-    texte_rect = texte_gros.get_rect(center=(c.LARGEUR // 2, c.HAUTEUR - (c.HAUTEUR - 40)))
+    texte_rect = texte_gros.get_rect(center=((c.LARGEUR // 2) + 10, c.HAUTEUR - (c.HAUTEUR - 40)))
     fenetre.blit(texte_gros, texte_rect)
 
     bouton_retour = c.creer_bouton(c.bouton_background, 'Retour', 20, c.BLANC, 250, 50, (c.LARGEUR//2) - (250//2), 500)
@@ -22,14 +22,13 @@ def principal():
 
     bouton_mute_image = "assets/images/unmute.png" if c.musique else "assets/images/mute.png"
     bouton_mute = pygame.image.load(bouton_mute_image)
-    bouton_mute = pygame.transform.scale(bouton_mute.convert_alpha(),
-                                         (bouton_mute.get_width() * 3, bouton_mute.get_height() * 3))
+    bouton_mute = pygame.transform.scale(bouton_mute.convert_alpha(),(bouton_mute.get_width() * 3, bouton_mute.get_height() * 3))
     rect_bouton_mute = bouton_mute.get_rect(topright=(c.LARGEUR - 8, 8))
     fenetre.blit(bouton_mute, rect_bouton_mute)
 
 
     for event in pygame.event.get():
-        print(c.volume)
+
         if event.type == pygame.QUIT:
             c.running = False
 

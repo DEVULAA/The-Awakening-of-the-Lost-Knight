@@ -28,6 +28,8 @@ volume = 30
 #assets
 bouton_background = "assets/images/bouton_background.png"
 
+fond = pygame.image.load("assets/images/fond_menu.png")
+
 # Chargement du personnage
 personnage_dos = pygame.image.load("assets/images/personnage/Vu_dos.png")
 personnage_dos = pygame.transform.scale(personnage_dos, (personnage_dos.get_width() * 3, personnage_dos.get_height() * 3))

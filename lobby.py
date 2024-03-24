@@ -207,7 +207,7 @@ def principal():
 
             if touches_pressee["gauche"]:
 
-                offset_carte[0] += 10
+                offset_carte[0] += 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_gauche = (current_frame_gauche + 1) % len(gauche_animation)
@@ -218,18 +218,17 @@ def principal():
 
             elif touches_pressee["droite"]:
 
-                offset_carte[0] -= 10
+                offset_carte[0] -= 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_droite = (current_frame_droite + 1) % len(droite_animation)
-                fenetre.blit(droite_animation[current_frame_droite],
-                             c.personnage_droite.get_rect(center=(c.pos_personnage)))
+                fenetre.blit(droite_animation[current_frame_droite], c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
                 derniere_direction = "droite"
 
             elif touches_pressee["haut"]:
 
-                offset_carte[1] += 10
+                offset_carte[1] += 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_dos = (current_frame_dos + 1) % len(dos_animation)
@@ -239,7 +238,7 @@ def principal():
                 derniere_direction = "haut"
 
             elif touches_pressee["bas"]:
-                offset_carte[1] -= 10
+                offset_carte[1] -= 7
 
                 if compteur_animation % vitesse_animation == 0:
                     current_frame_face = (current_frame_face + 1) % len(face_animation)
@@ -270,16 +269,16 @@ def principal():
                     # Collision détectée, annule le déplacement dans la direction correspondante
                     if touches_pressee["gauche"] and derniere_direction == "gauche" and c.determinerCote(
                             rect_personnage, objet) == "gauche":
-                        offset_carte[0] -= 10
+                        offset_carte[0] -= 7
                     elif touches_pressee["droite"] and derniere_direction == "droite" and c.determinerCote(
                             rect_personnage, objet) == "droite":
-                        offset_carte[0] += 10
+                        offset_carte[0] += 7
                     elif touches_pressee["haut"] and derniere_direction == "haut" and c.determinerCote(rect_personnage,
                                                                                                        objet) == "bas":
-                        offset_carte[1] -= 10
+                        offset_carte[1] -= 7
                     elif touches_pressee["bas"] and derniere_direction == "bas" and c.determinerCote(rect_personnage,
                                                                                                      objet) == "haut":
-                        offset_carte[1] += 10
+                        offset_carte[1] += 7
 
             # Si le personnage est sur le bouton du 1er niveau
 
@@ -293,17 +292,19 @@ def principal():
                     import level1
                     level1.principal() # Lancer le niveau 1
 
-            if carte.get_rect(center=(offset_carte))[0] >= 0 :
-                offset_carte[0] -= 10 #gauche
+            if carte.get_rect(center=(offset_carte))[0] >= 0:
+                offset_carte[0] -= 7 #gauche
 
             if carte.get_rect(center=(offset_carte))[1] >= 0 :
-                offset_carte[1] -= 10 #haut
+                offset_carte[1] -= 7 #haut
 
             if carte.get_rect(center=(offset_carte))[1] <= -2640 :
-                offset_carte[1] += 10 #bas
+                offset_carte[1] += 7 #bas
 
-            if carte.get_rect(center=(offset_carte))[0] <= -4960 :
-                offset_carte[0] += 10 #droite
+            if carte.get_rect(center=(offset_carte))[0] <= -4960 or carte.get_rect(center=(offset_carte))[0] <= -3485:
+                offset_carte[0] += 7 #droite
+
+
 
         # Objets dessus le personnage
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
