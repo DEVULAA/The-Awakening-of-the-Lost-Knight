@@ -25,6 +25,7 @@ index_animation = 0
 compteur_animation = 0
 animation_terminee = False
 
+
 temps_derniere_animation = pygame.time.get_ticks()
 
 # Charger l'image d'ombre

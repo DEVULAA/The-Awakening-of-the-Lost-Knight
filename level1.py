@@ -459,7 +459,7 @@ def principal():
 
             compteur_degats_boss += 1
 
-        elif boss_attaque and not attaque_deja_fait:
+        elif boss_attaque and not attaque_deja_fait and not fini:
 
             boss_rect = boss_animation_attaque[index_boss_attaque].get_rect(topleft=(pos_boss_x, pos_boss_y))
             fenetre.blit(boss_animation_attaque[index_boss_attaque], (boss_rect[0] - 60, boss_rect[1]))
@@ -533,3 +533,4 @@ def principal():
                 fenetre.blit(animation_mort[11], perso_rect)
 
         pygame.display.flip()
+principal()
