@@ -144,12 +144,11 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False}
 def principal():
     global index_attente, index_marche, index_attaque, index_boss_attente, index_boss_degats, index_boss_mort, index_degat, index_mort, index_bouclier, index_boss_attaque
 
-    pos_perso_x = 43
+    pos_perso_x = 0
     pos_perso_y = 385
 
-    pos_boss_x = 700
+    pos_boss_x = 650
     pos_boss_y = 425
-
 
     vie_boss = 300 # initialise la vie du boss à 300 HP
     vie_perso = 100 # initialise la vie du joueur à 100 HP
@@ -227,6 +226,9 @@ def principal():
 
 
         perso_rect = animation_attente[0].get_rect(topleft=(pos_perso_x, pos_perso_y))
+        perso_rect_bouclier = animation_attente[0].get_rect(topleft=(pos_perso_x, pos_perso_y))
+        perso_rect[2] = 130
+        perso_rect_bouclier[2] = 100
 
 
         if c.musique == False:
@@ -269,11 +271,6 @@ def principal():
                     compteur_bouclier = 0
                     joueur_bouclier = True
 
-                if event.key == pygame.K_k and not attaque and not joueur_est_attaque and not fini and not joueur_est_attaque and not animation_bouclier_finie:
-
-                    vie_perso -= 10
-                    joueur_est_attaque = True
-
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
                     touches_pressee["gauche"] = False
@@ -300,7 +297,11 @@ def principal():
                 pos_perso_x = pos_perso_x - 4
             else :
                 pos_perso_x = pos_perso_x - 1
-            derniere_direction = "gauche"
+
+            if joueur_bouclier or animation_bouclier_finie:
+                derniere_direction = "droite"
+            else:
+                derniere_direction = "gauche"
 
             if not en_saut and not attaque and not joueur_est_attaque and not animation_bouclier_finie and not joueur_bouclier:
                 # Afficher le sprite de l'animation de marche inversée
@@ -380,7 +381,7 @@ def principal():
         if joueur_bouclier and not en_saut and vie_perso > 0 and not fini and not joueur_est_attaque:
 
 
-            fenetre.blit(bouclier_animation[index_bouclier], perso_rect)
+            fenetre.blit(bouclier_animation[index_bouclier], perso_rect_bouclier)
 
 
             if int(compteur_bouclier) == 5:
@@ -396,7 +397,8 @@ def principal():
             compteur_bouclier += 1
 
         if animation_bouclier_finie:
-            fenetre.blit(bouclier_animation[2], perso_rect)
+            fenetre.blit(bouclier_animation[2], perso_rect_bouclier)
+
 
         if int(compteur_attente) == 7:
             # Mettre à jour l'index de l'animation d'attente
@@ -447,7 +449,7 @@ def principal():
         if boss_est_attaque and not fini and animation_temps_debut > 0 and pygame.time.get_ticks() - animation_temps_debut >= 300 and vie_boss > 0:
 
             boss_rect = boss_animation_degats[index_boss_degats].get_rect(topleft=(pos_boss_x, pos_boss_y))
-            fenetre.blit(boss_animation_degats[index_boss_degats], (boss_rect[0] - 60, boss_rect[1]))
+            fenetre.blit(boss_animation_degats[index_boss_degats], (boss_rect[0], boss_rect[1]))
 
 
             if int(compteur_degats_boss) == 5:
@@ -462,9 +464,9 @@ def principal():
         elif boss_attaque and not attaque_deja_fait and not fini:
 
             boss_rect = boss_animation_attaque[index_boss_attaque].get_rect(topleft=(pos_boss_x, pos_boss_y))
-            fenetre.blit(boss_animation_attaque[index_boss_attaque], (boss_rect[0] - 60, boss_rect[1]))
+            fenetre.blit(boss_animation_attaque[index_boss_attaque], (boss_rect[0], boss_rect[1]))
 
-            if not perso_rect.colliderect(boss_rect):
+            if not perso_rect_bouclier.colliderect(boss_rect):
                 pos_boss_x -= 6
 
             if int(compteur_attaque_boss) == 5:
@@ -481,7 +483,7 @@ def principal():
 
         elif vie_boss > 0:
             boss_rect = boss_animation_attente[index_boss_attente].get_rect(topleft=(pos_boss_x, pos_boss_y))
-            fenetre.blit(boss_animation_attente[index_boss_attente], (boss_rect[0] - 60, boss_rect[1]))
+            fenetre.blit(boss_animation_attente[index_boss_attente], (boss_rect[0], boss_rect[1]))
 
         if pos_boss_x != 650 and temps_replis > 0 and pygame.time.get_ticks() - temps_replis >= 2500:
 
@@ -490,7 +492,7 @@ def principal():
 
 
         if boss_attaque and perso_rect.colliderect(boss_rect) and not fini and not attaque and not joueur_est_attaque and not fini and not joueur_est_attaque and not animation_bouclier_finie:
-            vie_perso -= 10
+            vie_perso -= 30
             joueur_est_attaque = True
 
 
@@ -499,7 +501,7 @@ def principal():
             if not fini:
 
                 boss_rect = boss_animation_mort[index_boss_mort].get_rect(topleft=(pos_boss_x, pos_boss_y))
-                fenetre.blit(boss_animation_mort[index_boss_mort], (boss_rect[0] - 60, boss_rect[1]))
+                fenetre.blit(boss_animation_mort[index_boss_mort], (boss_rect[0], boss_rect[1]))
 
                 if int(compteur_boss_mort) == 10:
                     index_boss_mort = (index_boss_mort + 1) % len(boss_animation_mort)
@@ -509,7 +511,7 @@ def principal():
 
             if index_boss_mort == 6:
                 fini = True
-                fenetre.blit(boss_animation_mort[6], (boss_rect[0] - 50, boss_rect[1]))
+                fenetre.blit(boss_animation_mort[6], (boss_rect[0], boss_rect[1]))
 
         if vie_perso <= 0:
 
