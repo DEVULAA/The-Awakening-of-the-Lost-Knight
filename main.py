@@ -10,7 +10,7 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 # Définir le titre et l'icône du jeu
 pygame.display.set_caption("The Awakening of the Lost Knight")
-icone = pygame.image.load('assets/images/icone.png')
+icone = pygame.image.load('assets/images/icone.png').convert_alpha()
 pygame.display.set_icon(icone)
 
 

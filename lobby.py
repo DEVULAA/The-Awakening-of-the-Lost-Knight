@@ -28,7 +28,7 @@ gauche_animation = [c.personnage_gauche, c.personnage_gauche_marche1, c.personna
 
 eau_animation = [c.eau_1, c.eau_2, c.eau_3, c.eau_4]
 
-ombre = pygame.image.load("assets/images/personnage/shadow.png")
+ombre = pygame.image.load("assets/images/personnage/shadow.png").convert_alpha()
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
 #
 # bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
@@ -126,6 +126,7 @@ def principal():
 
                 c.running = False
                 pygame.quit()
+                quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Obtenir la position de la souris

@@ -9,7 +9,7 @@ pygame.init()
 fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
 # chargement de l'arrière plan
-arriere_plan = pygame.image.load("assets/images/level1/background.png")
+arriere_plan = pygame.image.load("assets/images/level1/background.png").convert_alpha()
 
 
 
@@ -195,7 +195,7 @@ def principal():
     barre_joueur = pygame.image.load("assets/images/personnage/level/barre_de_vie.png").convert_alpha()
     rect_barre_joueur = barre_joueur.get_rect(topleft=(70, 35))
 
-    icone = pygame.image.load('assets/images/icone.png')
+    icone = pygame.image.load('assets/images/icone.png').convert_alpha()
     icone = pygame.transform.scale(icone, (icone.get_width() * 2, icone.get_height() * 2))
 
     icone_rect = icone.get_rect(center=(c.LARGEUR / 2, 40))
@@ -492,7 +492,7 @@ def principal():
 
 
         if boss_attaque and perso_rect.colliderect(boss_rect) and not fini and not attaque and not joueur_est_attaque and not fini and not joueur_est_attaque and not animation_bouclier_finie:
-            vie_perso -= 30
+            vie_perso -= 20
             joueur_est_attaque = True
 
 
@@ -535,4 +535,3 @@ def principal():
                 fenetre.blit(animation_mort[11], perso_rect)
 
         pygame.display.flip()
-principal()
