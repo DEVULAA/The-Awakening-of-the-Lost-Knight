@@ -81,6 +81,9 @@ sprite_saut.blit(sprite_sheet, (0, 0), (sprite_width*7, sprite_height*3, sprite_
 sprite_saut = pygame.transform.scale(sprite_saut, (sprite_saut.get_width() * 3, sprite_saut.get_height() * 3))  # Ajuster la taille du sprite
 
 
+# victoire joueur
+victoire_joueur = pygame.image.load("assets/images/level1/you_win.png").convert_alpha()
+
 # initialisation d'index pour les animations
 index_attente = 0
 index_marche = 0
@@ -130,6 +133,9 @@ for i in range(5):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2, sprite.get_height() * 2))
     boss_animation_attaque.append(sprite.convert_alpha())
 
+# victoire boss
+victoire_boss = pygame.image.load("assets/images/level1/you_lose.png").convert_alpha()
+
 # index animations boss
 index_boss_attente = 0
 index_boss_degats = 0
@@ -173,6 +179,9 @@ def principal():
     temps_replis = 0
 
     derniere_direction = "droite"
+
+    victoire = ""
+    temps_affichage = 0
 
     en_saut = False
     attaque = False
@@ -512,6 +521,8 @@ def principal():
             if index_boss_mort == 6:
                 fini = True
                 fenetre.blit(boss_animation_mort[6], (boss_rect[0], boss_rect[1]))
+                victoire = "joueur"
+                temps_affichage = pygame.time.get_ticks()
 
         if vie_perso <= 0:
 
@@ -533,5 +544,21 @@ def principal():
             if index_mort == 11:
                 fini = True
                 fenetre.blit(animation_mort[11], perso_rect)
+                victoire = "boss"
+                temps_affichage = pygame.time.get_ticks()
+
+
+        if fini and pygame.time.get_ticks() - temps_affichage <= 5000:
+
+            if victoire == "boss" :
+                fenetre.blit(victoire_boss, (0, 0))
+
+            elif victoire == "joueur":
+                fenetre.blit(victoire_joueur, (0, 0))
+
+        elif pygame.time.get_ticks() - temps_affichage > 5000 and fini:
+            import lobby
+            lobby.principal()
+
 
         pygame.display.flip()
