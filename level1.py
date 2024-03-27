@@ -457,7 +457,6 @@ def principal():
         if (pos_boss_x - pos_perso_x) >= 300:
             attaque_deja_fait = False
 
-        print(pos_boss_x)
 
         if boss_est_attaque and not fini and animation_temps_debut > 0 and pygame.time.get_ticks() - animation_temps_debut >= 300 and vie_boss > 0:
 
@@ -531,6 +530,7 @@ def principal():
                 image_blur = fenetre.copy()
                 image_blur = pygame.transform.box_blur(image_blur, 10, repeat_edge_pixels=True)
                 temps_affichage = pygame.time.get_ticks()
+                index_boss_mort = 0
 
         if vie_perso <= 0:
 
@@ -551,12 +551,14 @@ def principal():
             compteur_mort += 1
 
             if index_mort == 11:
+
                 fini = True
                 fenetre.blit(animation_mort[11], perso_rect)
                 victoire = "boss"
                 temps_affichage = pygame.time.get_ticks()
                 image_blur = fenetre.copy()
                 image_blur = pygame.transform.box_blur(image_blur, 10, repeat_edge_pixels=True)
+                index_mort = 0
 
 
         if fini and not ne_plus_afficher:
@@ -569,8 +571,12 @@ def principal():
                 fenetre.blit(image_blur, (0, 0))
                 fenetre.blit(victoire_joueur, (0, 0))
 
-        if pygame.time.get_ticks() - temps_affichage > 5000 and fini:
+        if pygame.time.get_ticks() - temps_affichage >= 5000 and fini:
             ne_plus_afficher = True
+
+        if ne_plus_afficher:
+            import lobby
+            lobby.principal()
 
 
 
