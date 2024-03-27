@@ -26,6 +26,13 @@ Pour y parvenir, Godefroy devra affronter des créatures inconnues.
 ```
 5. Lancez le jeu en exécutant le fichier `main.py`.
 
+## Aide
+
+Voici les **touches pour le jeu**, que vous pouvez retrouver dans les **Paramètres du jeu également** (Paramètres -> Touches)
+<p align="center">
+  <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/ecran_touches.png?raw=true" alt="Écran touches"/>
+</p>
+
 ## Remerciements et sources (inspiration) :
 
 Nous tenons à remercier notre professeur de **NSI**, ainsi que tous les petits comptes de **Stackoverflow** qui demandent de l'aide 😂 et à ceux, beaucoup plus **experimentés** qui y repondent !
