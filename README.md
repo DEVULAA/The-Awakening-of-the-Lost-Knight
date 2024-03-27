@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/logo.png?raw=true" alt="Logo du jeu"/>
+  <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/logo.png?raw=true" width='320' alt="Logo du jeu"/>
 </p>
 
 # The Awakening Of The Lost Knight
@@ -30,7 +30,7 @@ Pour y parvenir, Godefroy devra affronter des créatures inconnues.
 
 Nous tenons à remercier notre professeur de **NSI**, ainsi que tous les petits comptes de **Stackoverflow** qui demandent de l'aide 😂 et à ceux, beaucoup plus **experimentés** qui y repondent !
 
-La plupart des images ont été dessinées par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> 
+La plupart des images ont été dessinées par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et la map par <a href="https://github.com/DEVULAA">DEVULAA</a>.
 
 Merci à [**brullov**](https://twitter.com/brullov_art), ainsi qu'a Google image pour l'inspiration !
 
