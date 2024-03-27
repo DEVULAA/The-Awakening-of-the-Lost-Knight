@@ -1,14 +1,20 @@
+<p align="center">
+  <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/logo.png?raw=true" alt="Logo du jeu"/>
+</p>
+
 # The Awakening Of The Lost Knight
 
 ## PRÉSENTATION GÉNÉRALE :
 
-Ce projet a été codé par 1ATL4NtiSs et DEVULAA pour le concours **Les Trophées de NSI 2024.**
+Ce projet a été codé par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et <a href="https://github.com/DEVULAA">DEVULAA</a> pour le concours **Les Trophées de NSI 2024.**
 
 **The Awakening Of The Lost Knight** est un jeu de combat en 2D mettant en scène un chevalier nommé Godefroy. 
 Plongé dans une époque semblable au Moyen Âge, Godefroy doit récupérer des joyaux pour retourner dans son siècle d'origine. 
 Pour y parvenir, Godefroy devra affronter des créatures inconnues.
 
-![Logo du jeu](/assets/images/image_logo.png)
+<p align="center">
+  <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/image_logo.png?raw=true" alt="Logo du jeu"/>
+</p>
 
 ## Installation et utilisation :
 
