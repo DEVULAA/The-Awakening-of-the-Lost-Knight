@@ -146,14 +146,15 @@ index_boss_attaque = 0
 # dictionnaire des touches pressées
 touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
+nb_attaque_bouclier = 0
 
 def principal():
-    global index_attente, index_marche, index_attaque, index_boss_attente, index_boss_degats, index_boss_mort, index_degat, index_mort, index_bouclier, index_boss_attaque
+    global index_attente, index_marche, index_attaque, index_boss_attente, index_boss_degats, index_boss_mort, index_degat, index_mort, index_bouclier, index_boss_attaque, nb_attaque_bouclier
 
     pos_perso_x = 0
     pos_perso_y = 385
 
-    pos_boss_x = 650
+    pos_boss_x = 625
     pos_boss_y = 425
 
     vie_boss = 300 # initialise la vie du boss à 300 HP
@@ -193,6 +194,7 @@ def principal():
     boss_est_attaque = False
     boss_attaque = False
     attaque_deja_fait = False
+    repli = False
 
 
 
@@ -236,8 +238,8 @@ def principal():
 
         perso_rect = animation_attente[0].get_rect(topleft=(pos_perso_x, pos_perso_y))
         perso_rect_bouclier = animation_attente[0].get_rect(topleft=(pos_perso_x, pos_perso_y))
-        perso_rect[2] = 130
-        perso_rect_bouclier[2] = 100
+        perso_rect[2] = 150
+        perso_rect_bouclier[2] = 120
 
 
         if c.musique == False:
@@ -448,12 +450,23 @@ def principal():
             boss_attaque = True
             temps_replis = pygame.time.get_ticks()
 
-        if pygame.time.get_ticks() - temps_replis > 2000 and attaque_deja_fait:
+        if pygame.time.get_ticks() - temps_replis > r.randint(1200, 2000) and attaque_deja_fait:
             attaque_deja_fait = False
 
         if (pos_boss_x - pos_perso_x) >= 300:
             attaque_deja_fait = False
 
+        if boss_attaque and (joueur_bouclier or animation_bouclier_finie) and perso_rect.colliderect(boss_rect) and nb_attaque_bouclier <= 2 and pos_boss_x != 625:
+            nb_attaque_bouclier += 2
+            if nb_attaque_bouclier == 2:
+                repli = True
+
+        if repli:
+            if pos_boss_x <= 650:
+                pos_boss_x += 2
+                nb_attaque_bouclier = 0
+            else:
+                 repli = False
 
         if boss_est_attaque and not fini and animation_temps_debut > 0 and pygame.time.get_ticks() - animation_temps_debut >= 300 and vie_boss > 0:
 
@@ -494,14 +507,14 @@ def principal():
             boss_rect = boss_animation_attente[index_boss_attente].get_rect(topleft=(pos_boss_x, pos_boss_y))
             fenetre.blit(boss_animation_attente[index_boss_attente], (boss_rect[0], boss_rect[1]))
 
-        if pos_boss_x != 650 and temps_replis > 0 and pygame.time.get_ticks() - temps_replis >= 2500:
+        if pos_boss_x != 625 and temps_replis > 0 and pygame.time.get_ticks() - temps_replis >= 2500:
 
-            if pos_boss_x <=650:
+            if pos_boss_x <=625:
                 pos_boss_x += 2
 
 
         if boss_attaque and perso_rect.colliderect(boss_rect) and not fini and not attaque and not joueur_est_attaque and not fini and not joueur_est_attaque and not animation_bouclier_finie:
-            vie_perso -= 20
+            vie_perso -= 10
             joueur_est_attaque = True
 
 
@@ -522,6 +535,8 @@ def principal():
                 fini = True
                 fenetre.blit(boss_animation_mort[6], (boss_rect[0], boss_rect[1]))
                 victoire = "joueur"
+                image_blur = fenetre.copy()
+                image_blur = pygame.transform.box_blur(image_blur, 10, repeat_edge_pixels=True)
                 temps_affichage = pygame.time.get_ticks()
 
         if vie_perso <= 0:
@@ -531,6 +546,7 @@ def principal():
                 if derniere_direction == "droite":
 
                     fenetre.blit(animation_mort[index_mort], perso_rect)
+
                 else:
 
                     fenetre.blit(pygame.transform.flip(animation_mort[index_mort], True, False), perso_rect)
@@ -546,17 +562,21 @@ def principal():
                 fenetre.blit(animation_mort[11], perso_rect)
                 victoire = "boss"
                 temps_affichage = pygame.time.get_ticks()
+                image_blur = fenetre.copy()
+                image_blur = pygame.transform.box_blur(image_blur, 10, repeat_edge_pixels=True)
 
 
         if fini and pygame.time.get_ticks() - temps_affichage <= 5000:
 
             if victoire == "boss" :
+                fenetre.blit(image_blur, (0, 0))
                 fenetre.blit(victoire_boss, (0, 0))
 
             elif victoire == "joueur":
+                fenetre.blit(image_blur, (0, 0))
                 fenetre.blit(victoire_joueur, (0, 0))
 
-        elif pygame.time.get_ticks() - temps_affichage > 5000 and fini:
+        if pygame.time.get_ticks() - temps_affichage > 5000 and fini:
             import lobby
             lobby.principal()
 

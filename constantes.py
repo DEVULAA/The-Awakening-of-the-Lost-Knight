@@ -20,6 +20,7 @@ game_state = ""
 
 image_pause = pygame.Surface((0,0))
 
+score = 0
 
 zoom_carte = 2
 
@@ -89,6 +90,8 @@ chateau_sable = pygame.transform.scale(chateau_sable, (chateau_sable.get_width()
 
 caisse = pygame.image.load("assets/images/caisse.png").convert_alpha()
 caisse = pygame.transform.scale(caisse, (caisse.get_width() * 2, caisse.get_height() * 2))
+
+#= pygame.image.load()
 
 palmier = pygame.image.load("assets/images/palmier.png").convert_alpha()
 palmier = pygame.transform.scale(palmier, (palmier.get_width() * 5, palmier.get_height() * 5))

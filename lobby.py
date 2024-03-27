@@ -1,6 +1,6 @@
 import pygame
 import constantes as c
-from pyvidplayer2 import Video
+#from pyvidplayer2 import Video
 
 
 # Initialiser pygame

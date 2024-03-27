@@ -48,9 +48,9 @@ while c.running:
             pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
             pygame.mixer.music.play(-1)
 
-    if c.musique == False:
 
-        pygame.mixer.music.pause()
+    if c.musique == False:
+         pygame.mixer.music.pause()
 
     # Si l'état du jeu est le menu de départ, afficher les boutons principaux
     if c.game_state == "menu":
@@ -95,6 +95,8 @@ while c.running:
 
 
     if c.game_state == "menu":
+
+        
 
         # Gérer les événements (si cliqué ou autre)
         for event in pygame.event.get():
@@ -146,3 +148,4 @@ while c.running:
         parametres.principal()
 
     pygame.display.flip()
+

@@ -12,8 +12,6 @@ pygame.init()
 
 fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 
-buffer_surface = pygame.Surface(fenetre.get_size(), pygame.SRCALPHA)
-
 def principal():
 
     if c.musique:
