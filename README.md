@@ -21,6 +21,8 @@ Pour y parvenir, Godefroy devra affronter des créatures inconnues.
 
 Nous tenons à remercier notre professeur de **NSI**, ainsi que tous les petits comptes de **Stackoverflow** qui demandent de l'aide 😂 et à ceux, beaucoup plus **experimentés** qui y repondent !
 
+La plupart des images ont été dessinées par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> 
+
 Merci à [**brullov**](https://twitter.com/brullov_art), ainsi qu'a Google image pour l'inspiration !
 
 
