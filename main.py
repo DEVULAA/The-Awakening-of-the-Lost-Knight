@@ -13,8 +13,6 @@ pygame.display.set_caption("The Awakening of the Lost Knight")
 icone = pygame.image.load('assets/images/icone.png').convert_alpha()
 pygame.display.set_icon(icone)
 
-
-
 # brillance du logo
 animation_logo = [f"assets/images/logo_animation/logo_0{i}.png" for i in range(10)]
 animation_logo.append("assets/images/logo_animation/logo_10.png")
@@ -25,13 +23,11 @@ index_animation = 0
 compteur_animation = 0
 animation_terminee = False
 
-
 temps_derniere_animation = pygame.time.get_ticks()
 
 # Charger l'image d'ombre
 ombre = pygame.image.load('assets/images/logo_ombre.png')
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 0.5, ombre.get_height() * 0.5))
-
 
 # Définir l'état du jeu
 c.game_state = "menu"
@@ -41,6 +37,7 @@ while c.running:
 
     pygame.mixer.music.set_volume(c.volume / 100)
 
+    # Import de la musique du menu
     if c.musique:
 
         if not pygame.mixer.music.get_busy():
@@ -48,14 +45,15 @@ while c.running:
             pygame.mixer.music.load("assets/sons/musique/menu_titre.wav")
             pygame.mixer.music.play(-1)
 
-
+    # Mettre en pause la musique
     if c.musique == False:
          pygame.mixer.music.pause()
 
-    # Si l'état du jeu est le menu de départ, afficher les boutons principaux
+
+    # Afficher les boutons principaux quand on est dans le menu
     if c.game_state == "menu":
 
-        # Remplir l'écran avec une couleur de fond (BLANC pour le moment)
+        # Image de fond du menu
         fenetre.blit(c.fond, (0, 0))
 
         logo = pygame.image.load(animation_logo[index_animation])
@@ -69,11 +67,12 @@ while c.running:
 
 
 
-        # Afficher les trois boutons principaux du menu
+        # Boutons du menu
         bouton_jouer = c.creer_bouton(c.bouton_background, 'Jouer', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 273)
         bouton_parametres = c.creer_bouton(c.bouton_background, 'Paramètres', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 353)
         bouton_quitter = c.creer_bouton(c.bouton_background, 'Quitter', 18, c.BLANC, 250, 50, (c.LARGEUR//2)-250//2, 433)
 
+        # Pour les animations
         if compteur_animation == 5 and not animation_terminee:
             index_animation += 1
             compteur_animation = 0
@@ -98,7 +97,7 @@ while c.running:
 
         
 
-        # Gérer les événements (si cliqué ou autre)
+        # Gérer les événements (si cliqué)
         for event in pygame.event.get():
 
             # Si l'utilisateur ferme la fenêtre, quitter le jeu

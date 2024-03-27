@@ -1,3 +1,4 @@
+# Import des modules
 import pygame
 import constantes as c
 #from pyvidplayer2 import Video
@@ -25,22 +26,23 @@ face_animation = [c.personnage_face, c.personnage_face_marche1, c.personnage_fac
 droite_animation = [c.personnage_droite, c.personnage_droite_marche1, c.personnage_droite_marche2]
 gauche_animation = [c.personnage_gauche, c.personnage_gauche_marche1, c.personnage_gauche_marche2]
 
-
 eau_animation = [c.eau_1, c.eau_2, c.eau_3, c.eau_4]
 
 ombre = pygame.image.load("assets/images/personnage/shadow.png").convert_alpha()
 ombre = pygame.transform.scale(ombre, (ombre.get_width() * 2.5, ombre.get_height() * 2.5))
-#
-# bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
-# bouton_shop = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() * 3, bouton_shop.get_height() * 3))
-# rect_bouton_shop = bouton_shop.get_rect(topright=(c.LARGEUR - 8, 8))
 
-# # Création de l'ombre
-# ombre_bouton_shop = bouton_shop.copy()  # Crée une copie de l'image du bouton shop
-# ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # Remplit l'image avec la couleur de l'ombre  # Applique une ombre semi-transparente
+"""
+bouton_shop = pygame.image.load("assets/images/shop.png").convert_alpha()
+bouton_shop = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() * 3, bouton_shop.get_height() * 3))
+rect_bouton_shop = bouton_shop.get_rect(topright=(c.LARGEUR - 8, 8))
 
-# # Création de l'image du bouton shop lorsqu'il est survolé
-# bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
+# Création de l'ombre
+ombre_bouton_shop = bouton_shop.copy()  # Crée une copie de l'image du bouton shop
+ombre_bouton_shop.fill((0, 0, 0, 50), special_flags=pygame.BLEND_RGBA_MULT)  # Remplit l'image avec la couleur de l'ombre  # Applique une ombre semi-transparente
+
+# Création de l'image du bouton shop lorsqu'il est survolé
+bouton_shop_hover = pygame.transform.scale(bouton_shop, (bouton_shop.get_width() + 3, bouton_shop.get_height() + 3))  # Augmente la taille de l'image de 3 pixels
+"""
 
 # Création de l'image du bouton level
 bouton_level = pygame.image.load("assets/images/bouton_level.png").convert_alpha()
@@ -58,11 +60,13 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False
 
 # transition = Video("assets/video/transition1.mov", use_pygame_audio=True, chunk_size=0)
 
+# Musique intro
 if c.musique:
     pygame.mixer.music.unload()
     pygame.mixer.music.load("assets/sons/musique/lobby_intro.wav")
     pygame.mixer.music.play()
 
+# Fonctions
 def principal():
 
     pygame.mixer.music.set_volume(c.volume / 100)
@@ -129,14 +133,16 @@ def principal():
                 quit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # Obtenir la position de la souris
+                """
+                Obtenir la position de la souris
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                # Si le bouton jouer est cliqué, changer l'état du jeu
-                # if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
-                #
-                #         import magasin
-                #         magasin.principal()  # Exécute la fonction principal() du module magasin
-
+                Si le bouton jouer est cliqué, changer l'état du jeu
+                if rect_bouton_shop.collidepoint(mouse_x, mouse_y):
+            
+                        import magasin
+                        magasin.principal()  # Exécute la fonction principal() du module magasin
+                """
+            # Touches
             if event.type == pygame.KEYDOWN:
 
 
@@ -187,6 +193,7 @@ def principal():
 
         touches = pygame.key.get_pressed()
 
+        # Collisions
         update_collisions()
 
         fenetre.blit(c.chateau_sable, rect_chateau_sable)
@@ -263,7 +270,7 @@ def principal():
                 elif derniere_direction == "droite":
                     fenetre.blit(c.personnage_droite, c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
-            #collisions
+            # Collisions
             for objet in objets:
 
                 if rect_personnage.colliderect(objet):
@@ -311,6 +318,7 @@ def principal():
         fenetre.blit(c.arbre_haut, rect_arbre_haut)
 
         # pygame.gfxdraw.box(fenetre, rect_arbre, (0, 0, 0, 100))
+
         # Mettre à jour l'affichage
         pygame.display.flip()
 

@@ -18,4 +18,4 @@ boss_attaquer()
 animation_attaque()
 
 
-quand bonhomme arrive pres vague -> son de l'eau
+Quand le personnage arrive près de l'eau -> son de l'eau

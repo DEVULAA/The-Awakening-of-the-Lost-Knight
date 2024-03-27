@@ -1,3 +1,4 @@
+"""
 import pygame
 import constantes as c
 # initialiser pygame
@@ -34,3 +35,4 @@ def principal():
         fenetre.blit(cases, cases.get_rect(center=(c.LARGEUR//2, c.HAUTEUR//2)))
         pygame.display.flip()
 
+"""

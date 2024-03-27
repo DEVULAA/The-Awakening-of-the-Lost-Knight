@@ -1,3 +1,4 @@
+# Importer les modules
 import pygame
 import constantes as c
 import random as r
@@ -12,16 +13,15 @@ fenetre = pygame.display.set_mode((c.LARGEUR, c.HAUTEUR))
 arriere_plan = pygame.image.load("assets/images/level1/background.png").convert_alpha()
 
 
-
 # -------------------- ANIMATIONS JOUEUR ---------------------
-# chargement de la feuille des sprites du joueur
+# Feuille des animations personnage level
 sprite_sheet = pygame.image.load("assets/images/personnage/level/char_sheet.png").convert_alpha()
 
 # dimensions de chaque case de la feuille des sprites
 sprite_width = 56
 sprite_height = 56
 
-# animation attente
+# animation attente personnage
 animation_attente = []
 for i in range(6):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -29,7 +29,7 @@ for i in range(6):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     animation_attente.append(sprite.convert_alpha())
 
-# animation marche
+# animation marche personnage
 animation_marche = []
 for i in range(8):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -37,7 +37,7 @@ for i in range(8):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     animation_marche.append(sprite.convert_alpha())
 
-# animation attaque
+# animation attaque personnage
 animation_attaque = []
 for i in range(8):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -46,7 +46,7 @@ for i in range(8):
     animation_attaque.append(sprite.convert_alpha())
 
 
-# animation dégats
+# animation dégats personnage
 animation_degat = []
 for i in range(4):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -54,7 +54,7 @@ for i in range(4):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     animation_degat.append(sprite.convert_alpha())
 
-# animation de mort
+# animation de mort personnage
 animation_mort = []
 for i in range(8):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -67,7 +67,7 @@ for i in range(4):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     animation_mort.append(sprite.convert_alpha())
 
-# animation bouclier
+# animation bouclier personnage
 bouclier_animation = []
 for i in range(3):
     sprite = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
@@ -75,16 +75,16 @@ for i in range(3):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 3, sprite.get_height() * 3))
     bouclier_animation.append(sprite.convert_alpha())
 
-# image de saut
+# animation de saut personnage
 sprite_saut = pygame.Surface([sprite_width, sprite_height], pygame.SRCALPHA)
 sprite_saut.blit(sprite_sheet, (0, 0), (sprite_width*7, sprite_height*3, sprite_width, sprite_height))
 sprite_saut = pygame.transform.scale(sprite_saut, (sprite_saut.get_width() * 3, sprite_saut.get_height() * 3))  # Ajuster la taille du sprite
 
 
-# victoire joueur
+# Victoire joeur
 victoire_joueur = pygame.image.load("assets/images/level1/you_win.png").convert_alpha()
 
-# initialisation d'index pour les animations
+# Init index personnage
 index_attente = 0
 index_marche = 0
 index_attaque = 0
@@ -93,15 +93,14 @@ index_mort = 0
 index_bouclier = 0
 
 # -------------------- ANIMATIONS BOSS ---------------------
-
-#chargement de la feuille des sprites du boss
+# Feuille des animations boss level
 boss_sheet = pygame.image.load("assets/images/boss/level/boss_sheet.png").convert_alpha()
 
-# dimensions du boss
+# dimensions de chaque case de la feuille des sprites
 boss_width = 64
 boss_height = 64
 
-# animation attente
+# animation attente boss
 boss_animation_attente = []
 for i in range(6):
     sprite = pygame.Surface([boss_width, boss_height], pygame.SRCALPHA)
@@ -109,7 +108,7 @@ for i in range(6):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2, sprite.get_height() * 2))
     boss_animation_attente.append(sprite.convert_alpha())
 
-#animation degats
+# animation degats boss
 boss_animation_degats = []
 for i in range(4):
     sprite = pygame.Surface([boss_width, boss_height], pygame.SRCALPHA)
@@ -117,7 +116,7 @@ for i in range(4):
     sprite = pygame.transform.scale(sprite, (sprite.get_width() * 2, sprite.get_height() * 2))
     boss_animation_degats.append(sprite.convert_alpha())
 
-#animation mort
+# animation mort boss
 boss_animation_mort = []
 for i in range(7):
     sprite = pygame.Surface([boss_width, boss_height], pygame.SRCALPHA)
@@ -148,6 +147,7 @@ touches_pressee = {"gauche": False, "droite": False, "haut": False}
 
 nb_attaque_bouclier = 0
 
+# Fonction principale
 def principal():
     global index_attente, index_marche, index_attaque, index_boss_attente, index_boss_degats, index_boss_mort, index_degat, index_mort, index_bouclier, index_boss_attaque, nb_attaque_bouclier
 
@@ -199,7 +199,7 @@ def principal():
 
 
 
-
+    # Import des barres de vie
     barre_boss = pygame.image.load("assets/images/boss/level/barre_de_vie.png").convert_alpha()
     rect_barre_boss = barre_boss.get_rect(topleft=(445, 35))
 
@@ -242,7 +242,7 @@ def principal():
         perso_rect[2] = 150
         perso_rect_bouclier[2] = 120
 
-
+        # Musique level
         if c.musique == False:
             pygame.mixer.music.pause()
 
@@ -259,6 +259,7 @@ def principal():
             if event.type == pygame.QUIT:
                 c.running = False
 
+            # Touches
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_q:
                     touches_pressee["gauche"] = True
@@ -354,7 +355,7 @@ def principal():
                 else:
                     fenetre.blit(pygame.transform.flip(animation_attaque[index_attaque], True, False), perso_rect)
 
-
+        # Gestion du saut
         if en_saut and not fini:
 
             pos_perso_y -= compteur_saut
@@ -560,7 +561,7 @@ def principal():
                 image_blur = pygame.transform.box_blur(image_blur, 10, repeat_edge_pixels=True)
                 index_mort = 0
 
-
+        # Titre de victoire ou defaite
         if fini and not ne_plus_afficher:
 
             if victoire == "boss" :
@@ -575,6 +576,11 @@ def principal():
             ne_plus_afficher = True
 
         if ne_plus_afficher:
+
+            if c.musique:
+                pygame.mixer.music.fadeout(500)
+                pygame.mixer.music.unload()
+
             import lobby
             lobby.principal()
 

@@ -15,6 +15,7 @@ afficher_ecran_touche = False
 
 attente = 0
 
+# Fonction principale
 def principal():
     global afficher_ecran_touche, attente
 

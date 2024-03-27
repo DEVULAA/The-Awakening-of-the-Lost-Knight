@@ -2,17 +2,18 @@ import pygame
 
 FPS = 60
 
-# couleurs
+# Couleurs
 BLANC = (255, 255, 255)
 NOIR = (0, 0, 0)
 ROUGE = (255, 0, 0)
 VERT = (0, 255, 0)
 BLEU = (0, 0, 255)
 
-# fenetre
+# Dimensions de la fenetre
 LARGEUR = 800
 HAUTEUR = 600
 
+# Création de la fenetre
 fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
 surface_pause = pygame.Surface((LARGEUR, HAUTEUR), pygame.SRCALPHA)
 
@@ -26,12 +27,13 @@ zoom_carte = 2
 
 volume = 30
 
-#assets
+# Bouton menu
 bouton_background = "assets/images/bouton_background.png"
 
+# Fond du menu
 fond = pygame.image.load("assets/images/fond_menu.png").convert_alpha()
 
-# Chargement du personnage
+# Chargement du personnage du lobby
 personnage_dos = pygame.image.load("assets/images/personnage/Vu_dos.png").convert_alpha()
 personnage_dos = pygame.transform.scale(personnage_dos, (personnage_dos.get_width() * 3, personnage_dos.get_height() * 3))
 
@@ -69,6 +71,11 @@ personnage_gauche_marche1 = pygame.transform.scale(personnage_gauche_marche1, (p
 personnage_gauche_marche2 = pygame.image.load("assets/images/personnage/Vu_cote_gauche_-_pied_gauche_arriere_.png").convert_alpha()
 personnage_gauche_marche2 = pygame.transform.scale(personnage_gauche_marche2, (personnage_gauche_marche2.get_width() * 3, personnage_gauche_marche2.get_height() * 3))
 
+pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
+
+# Elements de la map
+carte = pygame.image.load("assets/images/map.png").convert_alpha()  # Chargement de la map
+
 eau_1 = pygame.image.load("assets/images/eau/frame_0_delay-0.3s.png").convert_alpha()
 eau_1 = pygame.transform.scale(eau_1, (eau_1.get_width() * 3, eau_1.get_height() * 3))
 
@@ -81,17 +88,11 @@ eau_3 = pygame.transform.scale(eau_3, (eau_3.get_width() * 3, eau_3.get_height()
 eau_4 = pygame.image.load("assets/images/eau/frame_3_delay-0.3s.png").convert_alpha()
 eau_4 = pygame.transform.scale(eau_4, (eau_4.get_width() * 3, eau_4.get_height() * 3))
 
-pos_personnage = (LARGEUR // 2, HAUTEUR // 2)
-
-carte = pygame.image.load("assets/images/map.png").convert_alpha()  # Assurez-vous de remplacer par le chemin de votre propre carte
-
 chateau_sable = pygame.image.load("assets/images/chateau-sable.png").convert_alpha()
 chateau_sable = pygame.transform.scale(chateau_sable, (chateau_sable.get_width() * 2, chateau_sable.get_height() * 2))
 
 caisse = pygame.image.load("assets/images/caisse.png").convert_alpha()
 caisse = pygame.transform.scale(caisse, (caisse.get_width() * 2, caisse.get_height() * 2))
-
-#= pygame.image.load()
 
 palmier = pygame.image.load("assets/images/palmier.png").convert_alpha()
 palmier = pygame.transform.scale(palmier, (palmier.get_width() * 5, palmier.get_height() * 5))
@@ -102,9 +103,7 @@ arbre = pygame.transform.scale(arbre, (arbre.get_width() * 3, arbre.get_height()
 arbre_haut = pygame.image.load("assets/images/arbre_haut.png").convert_alpha()
 arbre_haut = pygame.transform.scale(arbre_haut, (arbre_haut.get_width() * 3, arbre_haut.get_height() * 3))
 
-bateau = pygame.image.load("assets/images/bateau.png").convert_alpha()
-bateau = pygame.transform.scale(bateau, (bateau.get_width() * 5.5, bateau.get_height() * 5.5))
-
+# Options menu
 pause = False
 est_menu = False
 
@@ -112,10 +111,9 @@ musique = True
 
 venu_de = ""
 
-#running
 running = True
 
-#creer boutons
+# Fonctions constantes
 def creer_bouton(image, texte, taille_texte, couleur_texte, bouton_largeur, bouton_hauteur, pos_x, pos_y):
 
     font = pygame.font.Font("assets/polices/DePixelHalbfett.ttf", taille_texte)
