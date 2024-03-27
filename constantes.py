@@ -162,15 +162,6 @@ def determinerCote(rect1, rect2):
     elif rect1.midright[0] < rect2.midright[0]:
         return "droite"
 
-def afficher_alpha(fenetre, source, coordonnees, opacite):
-    x = coordonnees[0]
-    y = coordonnees[1]
-    temp = pygame.Surface((source.get_width(), source.get_height())).convert()
-    temp.blit(fenetre, (-x, -y))
-    temp.blit(source, (0, 0))
-    temp.set_alpha(opacite)
-    fenetre.blit(temp, coordonnees)
-
 
 
 
