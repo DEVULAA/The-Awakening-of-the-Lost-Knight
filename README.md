@@ -20,7 +20,7 @@ Pour y parvenir, Godefroy devra affronter des créatures inconnues.
 
 1. Assurez-vous d'avoir Python installé sur votre ordinateur.
 2. Clonez ce repository.
-3. Installez le module pygame-ce (ou pygame si vous souhaitez) en utilisant la commande :
+3. Installez le module [pygame-ce](https://github.com/pygame-community/pygame-ce) (_dérivé améliorée de pygame crée par la communauté, mais si vous le souhaitez vous pouvez installer pygame normal_) en utilisant la commande :
 ```
 >>> pip install pygame-ce
 ```
