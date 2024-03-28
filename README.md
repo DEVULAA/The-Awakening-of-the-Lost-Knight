@@ -39,6 +39,8 @@ Nous tenons à remercier notre professeur de **NSI**, ainsi que tous les petits 
 
 La plupart des images ont été dessinées par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et la map par <a href="https://github.com/DEVULAA">DEVULAA</a>.
 
+Toute la musique a été **entièrement composée** par <a href="https://github.com/DEVULAA">DEVULAA</a>.
+
 Merci à [**brullov**](https://twitter.com/brullov_art), ainsi qu'a Google image pour l'inspiration !
 
 
