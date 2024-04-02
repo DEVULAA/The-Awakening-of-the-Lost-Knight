@@ -6,7 +6,9 @@
 
 ## PRÉSENTATION GÉNÉRALE :
 
-Ce projet a été codé par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et <a href="https://github.com/DEVULAA">DEVULAA</a> pour le concours **Les Trophées de NSI 2024.**
+Ce projet a été codé par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et <a href="https://github.com/DEVULAA">DEVULAA</a> pour le concours **Les Trophées de NSI 2024.** puis remasterisé dans une fork à l'aide de <a href="https://github.com/Elanextdev">Elanext</a>.
+
+
 
 **The Awakening Of The Lost Knight** est un jeu de combat en 2D mettant en scène un chevalier nommé Godefroy. 
 Plongé dans une époque semblable au Moyen Âge, Godefroy doit récupérer des joyaux pour retourner dans son siècle d'origine. 

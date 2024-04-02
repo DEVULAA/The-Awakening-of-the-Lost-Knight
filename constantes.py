@@ -19,6 +19,8 @@ surface_pause = pygame.Surface((LARGEUR, HAUTEUR), pygame.SRCALPHA)
 
 game_state = ""
 
+game_frames = []
+
 image_pause = pygame.Surface((0,0))
 
 score = 0
@@ -105,6 +107,9 @@ arbre_haut = pygame.transform.scale(arbre_haut, (arbre_haut.get_width() * 3, arb
 
 # Options menu
 pause = False
+
+unpause_game = False
+
 est_menu = False
 
 musique = True
