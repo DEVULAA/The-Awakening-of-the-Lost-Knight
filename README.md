@@ -35,6 +35,11 @@ Voici les **touches pour le jeu**, que vous pouvez retrouver dans les **Paramèt
   <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/ecran_touches.png?raw=true" alt="Écran touches"/>
 </p>
 
+## Outils développeur
+
+Ce mode est *activable* et *désacctivable* à l'aide de la suite de touche suivante : ```haut > haut > bas > bas > gauche > droite > gauche > droite > B > A```
+Ce mode permet le débogage en affichant les *boites de collision* mais il permet aussi d'en rajouter *temporairement* afin de pouvoir les ajouter au jeu.
+
 ## Remerciements et sources (inspiration) :
 
 Nous tenons à remercier notre professeur de **NSI**, ainsi que tous les petits comptes de **Stackoverflow** qui demandent de l'aide 😂 et à ceux, beaucoup plus **experimentés** qui y repondent !

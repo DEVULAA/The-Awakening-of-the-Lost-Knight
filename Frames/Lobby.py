@@ -2,6 +2,7 @@ import constantes as c
 from Button import *
 import pygame
 from Frame import Frame
+from HitBox import HitBox
 pygame.init()
 class Lobby(Frame):
     pausable = True
@@ -15,6 +16,9 @@ class Lobby(Frame):
         self.current_frame_droite = 0
         self.current_frame_gauche = 0
         self.derniere_direction = "haut"
+
+        self.posforbox = []
+        self.hitboxs = []
 
         self.compteur_animation = 0
         self.vitesse_animation = 4
@@ -71,9 +75,57 @@ class Lobby(Frame):
 
         self.offset_carte = [c.LARGEUR + 1500, c.HAUTEUR - 1200]
 
-        self.objets = []
 
-    def update_collisions(self):
+        self.hitbox = HitBox(self.rect_personnage)
+        #chateau de sable
+        self.hitbox.addHitboxByCenter(-2300,1000,c.chateau_sable)
+
+        #caisse1
+        self.hitbox.addHitboxByCenter(-2100,1200,c.caisse)
+
+        #caisse2
+        self.hitbox.addHitboxByCenter(-2170,1170,c.caisse)
+
+        #palmier
+        self.hitbox.addHitboxByCenter(-2200,850,c.palmier)
+
+        #rivière
+        self.hitbox.addHitboxByPos((-985, 99),(-685, 240))
+        self.hitbox.addHitboxByPos((-844, 246),(-671, 551))
+        self.hitbox.addHitboxByPos((-1126, -427),(-845, -288))
+        self.hitbox.addHitboxByPos((-1127, -427),(-835, -286))
+        self.hitbox.addHitboxByPos((-1130, -280),(-993, -210))
+        self.hitbox.addHitboxByPos((-1435, -276),(-1157, 14))
+        self.hitbox.addHitboxByPos((-1436, -273),(-1143, 19))
+        self.hitbox.addHitboxByPos((-1282, -48),(-991, 163))
+        self.hitbox.addHitboxByPos((-1439, -280),(-1146, 20))
+        self.hitbox.addHitboxByPos((-1283, -51),(-993, 159))
+        self.hitbox.addHitboxByPos((-1285, -50),(-993, 163))
+        self.hitbox.addHitboxByPos((-842, 674),(-682, 842))
+
+        #panneau1
+        self.hitbox.addHitboxByPos((-1970, 439),(-1957, 510))
+        self.hitbox.addHitboxByPos((-1996, 454),(-1936, 491))
+
+        #panneau2
+        self.hitbox.addHitboxByPos((-1004, 449),(-991, 519))
+        self.hitbox.addHitboxByPos((-1031, 464),(-971, 499))
+
+        #panneau3
+        self.hitbox.addHitboxByPos((220, -159),(233, -89))
+        self.hitbox.addHitboxByPos((194, -144),(254, -105))
+
+        #ponton
+        self.hitbox.addHitboxByPos((-1220, 996),(-1040, 1311))
+        self.hitbox.addHitboxByPos((-1505, 1000),(-1341, 1248))
+        self.hitbox.addHitboxByPos((-1343, 1249),(-1223, 1310))
+
+        #sapin
+        self.hitbox.addHitboxByPos((-1579, 842),(-1422, 922))
+
+
+
+    def update_objects(self):
         self.rect_chateau_sable = c.chateau_sable.get_rect(center=(self.offset_carte[0] - 2300, self.offset_carte[1] + 1000))
         self.rect_caisse1 = c.caisse.get_rect(center=(self.offset_carte[0] - 2100, self.offset_carte[1] + 1200))
         self.rect_caisse2 = c.caisse.get_rect(center=(self.offset_carte[0] - 2170, self.offset_carte[1] + 1170))
@@ -82,20 +134,28 @@ class Lobby(Frame):
         self.rect_arbre = c.arbre.get_rect(center=(self.offset_carte[0] - 1500, self.offset_carte[1] + 850))
         self.rect_arbre[1] += 95
         self.rect_arbre[3] = 80
-
         self.pos_arbre = c.arbre.get_rect(center=(self.offset_carte[0] - 1500, self.offset_carte[1] + 850))
-
         self.rect_arbre_haut = c.arbre_haut.get_rect(center=(self.offset_carte[0] - 1500, self.offset_carte[1] + 850))
-
-
-        self.objets = [self.rect_chateau_sable, self.rect_palmier, self.rect_caisse1, self.rect_caisse2, self.rect_arbre]  # liste des collisions
-        
+       
+        if c.debug_mod:
+            pygame.draw.rect(self.fenetre,(0,0,0),self.rect_arbre)
+            for obj in self.hitbox.getHitboxRect(self.offset_carte):
+                pygame.draw.rect(self.fenetre,(0,255,255),obj)
+            pygame.draw.rect(self.fenetre,(255,0,0),self.rect_personnage)        
 
     def verifyEvents(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN:
                 
             #Obtenir la position de la souris
             mouse_x, mouse_y = pygame.mouse.get_pos()
+
+            if c.debug_mod:
+                self.posforbox.append((mouse_x-self.offset_carte[0], mouse_y - self.offset_carte[1]))
+                if len(self.posforbox) == 2:
+                    print(f"self.hitbox.addHitboxByPos({str(self.posforbox[0])},{str(self.posforbox[1])})")
+                    self.hitbox.addHitboxByPos(self.posforbox[0],self.posforbox[1])
+                    self.posforbox = []
+
             #Si le bouton jouer est cliqué, changer l'état du jeu
             if self.rect_bouton_shop.collidepoint(mouse_x, mouse_y):
                 c.game_state = "shop"
@@ -112,6 +172,10 @@ class Lobby(Frame):
                 self.touches_pressee["haut"] = True
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.touches_pressee["bas"] = True
+            
+            elif event.key == pygame.K_c:
+                if c.debug_mod:
+                    self.hitboxs.pop()
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_q:
@@ -148,9 +212,9 @@ class Lobby(Frame):
                          center=(c.LARGEUR // 2, (c.HAUTEUR // 2) + (c.personnage_dos.get_height() + 5) // 2)))
 
 
-
-        # Collisions
-        self.update_collisions()
+        # changer la position des objects
+        self.update_objects()
+        
 
         self.fenetre.blit(c.chateau_sable, self.rect_chateau_sable)
         self.fenetre.blit(c.caisse, self.rect_caisse1)
@@ -226,23 +290,18 @@ class Lobby(Frame):
                 elif self.derniere_direction == "droite":
                     self.fenetre.blit(c.personnage_droite, c.personnage_droite.get_rect(center=(c.pos_personnage)))
 
+            
             # Collisions
-            for objet in self.objets:
+            collisions = self.hitbox.getCollisions(self.offset_carte)
+            if "gauche" in collisions and self.derniere_direction == "gauche":
+                self.offset_carte[0] -= collisions["gauche"]
+            if "droite" in collisions and self.derniere_direction == "droite":
+                self.offset_carte[0] += collisions["droite"]
+            if "haut" in collisions and self.derniere_direction == "haut":
+                self.offset_carte[1] -= collisions["haut"]
+            if "bas" in collisions and self.derniere_direction == "bas":
+                self.offset_carte[1] += collisions["bas"]
 
-                if self.rect_personnage.colliderect(objet):
-                    # Collision détectée, annule le déplacement dans la direction correspondante
-                    if self.touches_pressee["gauche"] and self.derniere_direction == "gauche" and c.determinerCote(
-                            self.rect_personnage, objet) == "gauche":
-                        self.offset_carte[0] -= 7
-                    elif self.touches_pressee["droite"] and self.derniere_direction == "droite" and c.determinerCote(
-                            self.rect_personnage, objet) == "droite":
-                        self.offset_carte[0] += 7
-                    elif self.touches_pressee["haut"] and self.derniere_direction == "haut" and c.determinerCote(self.rect_personnage,
-                                                                                                       objet) == "bas":
-                        self.offset_carte[1] -= 7
-                    elif self.touches_pressee["bas"] and self.derniere_direction == "bas" and c.determinerCote(self.rect_personnage,
-                                                                                                     objet) == "haut":
-                        self.offset_carte[1] += 7
 
             # Si le personnage est sur le bouton du 1er niveau
 
@@ -276,7 +335,6 @@ class Lobby(Frame):
 
 
     def firstAction(self):
-        print("first action")
         self.touches_pressee = {"gauche": False, "droite": False, "haut": False, "bas": False}
         if c.musique:
             pygame.mixer.music.unload()

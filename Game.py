@@ -21,6 +21,10 @@ class Game:
 
 
         self.menu_pause = MenuPause()
+
+        self.font = pygame.font.SysFont("Verdana", 20)
+        self.text_value = ""
+        self.text = self.font.render(self.text_value, True, (255, 255, 255))
         
 
 
@@ -65,6 +69,20 @@ class Game:
                             c.pause = False
                             self.setFrame(self.old_frame)
                             self.frame.unpause()
+                if event.type == pygame.KEYDOWN:
+                    c.last_keys += str(event.key)+","
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.text_value = self.text_value[:-1]
+                        self.text = self.font.render(self.text_value, True, (255, 255, 255))
+                    if event.key == pygame.K_RETURN:
+                        if self.text_value == "debug":
+                            c.debug_mod = not c.debug_mod
+                        self.text_value = ""
+                if event.type == pygame.TEXTINPUT:
+                    self.text_value += event.text
+                    self.text = self.font.render(self.text_value, True, (255, 255, 255))
+                    
                 self.frame.verifyEvents(event)
 
             
@@ -75,10 +93,15 @@ class Game:
                 self.fps_text = self.font.render(str(round(fps)), True, c.BLANC)
                 self.fps_text_rect = self.fps_text.get_rect(center=(20, 20))
                 self.fenetre.blit(self.fps_text,self.fps_text_rect)
+                if "1073741906,1073741906,1073741905,1073741905,1073741904,1073741903,1073741904,1073741903,98,97" in c.last_keys:
+                    c.last_keys = ""
+                    c.debug_mod = not c.debug_mod
+                    self.text_value = ""
+                    #self.fenetre.blit(self.text,(10,20))
+                #if c.debug_mod:
+                    #self.fenetre.blit(self.text,(10,20))
 
                 pygame.time.Clock().tick(60)
                 pygame.display.flip()
-
-
 
 

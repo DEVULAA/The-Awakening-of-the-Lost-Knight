@@ -22,7 +22,6 @@ c.game_frames.append(shop)
 test = Test()
 c.game_frames.append(test)
 
-
 # Définir l'état du jeu
 c.game_state = "menu"
 
