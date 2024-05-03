@@ -3,6 +3,7 @@
 </p>
 
 # The Awakening Of The Lost Knight
+*beta-2.1.0*
 
 ## PRÉSENTATION GÉNÉRALE :
 
