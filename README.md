@@ -3,10 +3,13 @@
 </p>
 
 # The Awakening Of The Lost Knight
+*beta-2.1.0*
 
 ## PRÉSENTATION GÉNÉRALE :
 
-Ce projet a été codé par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et <a href="https://github.com/DEVULAA">DEVULAA</a> pour le concours **Les Trophées de NSI 2024.**
+Ce projet a été codé par <a href="https://github.com/1ATL4NtiSs">1ATL4NtiSs</a> et <a href="https://github.com/DEVULAA">DEVULAA</a> pour le concours **Les Trophées de NSI 2024.** puis remasterisé dans une fork à l'aide de <a href="https://github.com/Elanextdev">Elanext</a>.
+
+
 
 **The Awakening Of The Lost Knight** est un jeu de combat en 2D mettant en scène un chevalier nommé Godefroy. 
 Plongé dans une époque semblable au Moyen Âge, Godefroy doit récupérer des joyaux pour retourner dans son siècle d'origine. 
@@ -32,6 +35,11 @@ Voici les **touches pour le jeu**, que vous pouvez retrouver dans les **Paramèt
 <p align="center">
   <img src="https://github.com/DEVULAA/The-Awakening-of-the-Lost-Knight/blob/main/assets/images/ecran_touches.png?raw=true" alt="Écran touches"/>
 </p>
+
+## Outils développeur
+
+Ce mode est *activable* et *désacctivable* à l'aide de la suite de touche suivante : ```haut > haut > bas > bas > gauche > droite > gauche > droite > B > A```
+Ce mode permet le débogage en affichant les *boites de collision* mais il permet aussi d'en rajouter *temporairement* afin de pouvoir les ajouter au jeu.
 
 ## Remerciements et sources (inspiration) :
 
